@@ -1,0 +1,17 @@
+{    
+    "Name": "Slot Machine Block",
+    "CreatorName": "dndbeard",
+    "UniqueID": 823399,
+    "Recipe": {
+      "Array" : [35,35,35,35,35,35,62,62,62,35,35,35],
+      "SizeX": 1,
+      "SizeY": 3,
+      "SizeZ": 4
+},
+    "Yield": 10,
+    "SimilarTo": 1,
+    "Textures": {
+        "Mode": 1,
+        "WithNormals" : false
+      }
+  }

@@ -1,0 +1,17 @@
+{    
+    "Name": "Slot Cherry Block",
+    "CreatorName": "dndbeard",
+    "UniqueID": 500400662,
+    "Recipe": {
+      "Array" : [],
+      "SizeX": 0,
+      "SizeY": 0,
+      "SizeZ": 0
+  },
+    "Yield": 1,
+    "SimilarTo": 4,
+    "Textures": {
+        "Mode": 1,
+        "WithNormals" : false
+      }
+  }

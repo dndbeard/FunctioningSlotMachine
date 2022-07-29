@@ -12,4 +12,6 @@ const UniqueID SlotBarBarBarBlockID = 500400665;
 const UniqueID SlotSevenBlockID = 500400666;
 const UniqueID SlotCrystalBlockID = 500400667;
 
+const UniqueID SlotAnimatedBlockID = 500400777;
+
 const CoordinateInBlocks up = CoordinateInBlocks(0, 0, 1);

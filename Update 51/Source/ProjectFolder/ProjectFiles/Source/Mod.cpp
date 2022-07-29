@@ -31,7 +31,8 @@ void RemoveSlotMachine(CoordinateInBlocks At, DirectionVectorInCentimeters Direc
 
 
 UniqueID ThisModUniqueIDs[] = { SlotMachineBlockID, FrameBlockID, SlotButtonBlockID,
-								SlotZeroBlockID, SlotCherryBlockID, SlotBarBlockID, SlotBarBarBlockID, SlotBarBarBarBlockID, SlotSevenBlockID, SlotCrystalBlockID
+								SlotZeroBlockID, SlotCherryBlockID, SlotBarBlockID, SlotBarBarBlockID, SlotBarBarBarBlockID, SlotSevenBlockID, SlotCrystalBlockID,
+								SlotAnimatedBlockID
 }; // All the UniqueIDs this mod manages. Functions like Event_BlockPlaced are only called for blocks of IDs mentioned here. 
 
 float TickRate = 1;							 // Set how many times per second Event_Tick() is called. 0 means the Event_Tick() function is never called.
@@ -70,7 +71,7 @@ void Event_BlockDestroyed(CoordinateInBlocks At, UniqueID CustomBlockID, bool Mo
 		// Check if what we are trying to remove was indeed placed by this specific block
 		for (CoordinateInBlocks coords : BlocksThatGenerated) {
 			if (coords == At) {
-				RemoveSlotMachine(At, GetPlayerViewDirection());
+				SlotMachine::RemoveSlotMachine(At, GetPlayerViewDirection());
 			}
 			else {
 				temp.push_back(coords); // This whole vector stuff could be expensive, consider iterators
@@ -164,7 +165,7 @@ void Event_OnExit()
 // Run every time any block is placed by the player
 void Event_AnyBlockPlaced(CoordinateInBlocks At, BlockInfo Type, bool Moved)
 {
-	SpawnHintText(At + up, GetPlayerViewDirection().ToString(), 5);
+	//SpawnHintText(At + up, GetPlayerViewDirection().ToString(), 5);
 }
 
 // Run every time any block is destroyed by the player

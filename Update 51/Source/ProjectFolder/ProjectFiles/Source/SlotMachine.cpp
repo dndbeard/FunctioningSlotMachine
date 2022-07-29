@@ -169,9 +169,9 @@ public:
 		Offset offset = GetOffset(Direction);
 		for (int i = 1; i <= 4; i++) {
 			if (i == 3) {  // Set the slots
-				SetBlock(At + CoordinateInBlocks(-offset.X, -offset.Y, i), SlotSevenBlockID);
-				SetBlock(At + CoordinateInBlocks(        0,         0, i), SlotSevenBlockID);
-				SetBlock(At + CoordinateInBlocks( offset.X,  offset.Y, i), SlotSevenBlockID);
+				SetBlock(At + CoordinateInBlocks(-offset.X, -offset.Y, i), SlotAnimatedBlockID);
+				SetBlock(At + CoordinateInBlocks(        0,         0, i), SlotAnimatedBlockID);
+				SetBlock(At + CoordinateInBlocks( offset.X,  offset.Y, i), SlotAnimatedBlockID);
 			}
 			else {			// Set the frame
 				SetBlock(At + CoordinateInBlocks(-offset.X, -offset.Y, i), FrameBlockID);
@@ -185,7 +185,7 @@ public:
 
 	// Remove the whole structure
 	// At == origin block, Direction == where player is facing
-	void RemoveSlotMachine(CoordinateInBlocks At, DirectionVectorInCentimeters Direction) {
+	static void RemoveSlotMachine(CoordinateInBlocks At, DirectionVectorInCentimeters Direction) {
 		Offset offset = SlotMachine::GetOffset(SlotMachine::ReverseDirection(GetSlotMachineDirection(At)));
 
 		for (int i = 1; i <= 4; i++) {

@@ -24,15 +24,6 @@
     <ClCompile Include="Source\GameFunctions.cpp">
       <Filter>Source Files\InternalFiles</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SlotRoll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\SlotMachine.cpp">
-      <Filter>Source Files\InternalFiles</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Constants.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\GameAPI.h">
@@ -49,9 +40,6 @@
     </ClInclude>
     <ClInclude Include="Source\GameAPI.cpp">
       <Filter>Source Files\InternalFiles</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Mod.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

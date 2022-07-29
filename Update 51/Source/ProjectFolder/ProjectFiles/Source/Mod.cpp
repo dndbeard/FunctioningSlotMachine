@@ -11,61 +11,8 @@
 std::vector<CoordinateInBlocks> BlocksThatGenerated = {};
 
 
-// Get offset values from view direction
-// Used to correctly position structure depending on where the player looks
-Offset GetOffset(DirectionVectorInCentimeters Direction) {
-	int offsetX = 0;
-	int offsetY = 0;
-
-	if (std::abs(Direction.X) >= std::abs(Direction.Y) && Direction.X >= 0) { // Player looks at east
-		offsetY = 1;
-	}
-	else if (std::abs(Direction.X) > std::abs(Direction.Y) && Direction.X < 0) { // Player looks at west
-		offsetY = -1;
-	}
-	else if (std::abs(Direction.X) < std::abs(Direction.Y) && Direction.Y < 0) { // Player looks at south
-		offsetX = -1;
-	}
-	else if (std::abs(Direction.X) <= std::abs(Direction.Y) && Direction.Y >= 0) { // Player looks at north
-		offsetX = 1;
-	}
-
-	return Offset(offsetX, offsetY);
-}
-
-bool IsSafeToPlace(CoordinateInBlocks At, DirectionVectorInCentimeters Direction) {
-
-	Offset offset = GetOffset(Direction);
-
-	for (int i = 1; i <= 4; i++) {
-		if (GetBlock(At + CoordinateInBlocks(-offset.X, -offset.Y, i)).Type != EBlockType::Air) return false;
-		if (GetBlock(At + CoordinateInBlocks(0, 0, i)).Type != EBlockType::Air) return false;
-		if (GetBlock(At + CoordinateInBlocks(offset.X, offset.Y, i)).Type != EBlockType::Air) return false;
-	}
-	if (GetBlock(At + CoordinateInBlocks(-offset.X * 2, offset.Y * 2, 3)).Type != EBlockType::Air) return false;
-	return true;
-}
-
-void PlaceSlotMachine(CoordinateInBlocks At, DirectionVectorInCentimeters Direction) {
-	/*
-	Offset offset = GetOffset(Direction);
-
-	// Create machine metal frame
-	for (int i = 1; i <= 4; i++) {
-		if (i == 3) continue;
-		SetBlock(At + CoordinateInBlocks(-offset.X, -offset.Y, i), FrameBlockID);
-		SetBlock(At + CoordinateInBlocks(        0,         0, i), FrameBlockID);
-		SetBlock(At + CoordinateInBlocks( offset.X,  offset.Y, i), FrameBlockID);
-	}
-
-	// Create activation button
-	SetBlock(At + CoordinateInBlocks(-offset.X*2, offset.Y*2, 3), MetalButtonBlockID);
-	*/
-	SlotMachine::BuildHere(At, GetPlayerViewDirection());
-}
-
 void RemoveSlotMachine(CoordinateInBlocks At, DirectionVectorInCentimeters Direction) {
-	Offset offset = GetOffset(Direction);
+	Offset offset = SlotMachine::GetOffset(Direction);
 
 	for (int i = 1; i <= 4; i++) {
 		SetBlock(At + CoordinateInBlocks(-offset.X, -offset.Y, i), EBlockType::Air);
@@ -88,7 +35,6 @@ UniqueID ThisModUniqueIDs[] = { SlotMachineBlockID, FrameBlockID, SlotButtonBloc
 }; // All the UniqueIDs this mod manages. Functions like Event_BlockPlaced are only called for blocks of IDs mentioned here. 
 
 float TickRate = 1;							 // Set how many times per second Event_Tick() is called. 0 means the Event_Tick() function is never called.
-int TickNum = 1;							 // Tick counter. Used to skip ticks
 
 /*************************************************************
 //	Functions (Run automatically by the game, you can put any code you want into them)
@@ -99,14 +45,14 @@ void Event_BlockPlaced(CoordinateInBlocks At, UniqueID CustomBlockID, bool Moved
 {
 
 	if (CustomBlockID == SlotMachineBlockID) {
-		//if (!IsSafeToPlace(At, GetPlayerViewDirection())) {
-		if (!SlotMachine::EnoughSpace(At, GetPlayerViewDirection())) {
-			SetBlock(At, EBlockType::Air);
+
+		if (!SlotMachine::EnoughSpace(At, GetPlayerViewDirection())) {				// Check if there is enough space to place Slot Machine
+			SetBlock(At, EBlockType::Air);									// If not, remove placed block and spawn hint
 			SpawnBlockItem(At, SlotMachineBlockID);
 			SpawnHintText(At, L"Not enough space to place!", 3);
 		}
 		else {
-			SlotMachine::BuildHere(At, GetPlayerViewDirection());
+			SlotMachine::BuildHere(At, GetPlayerViewDirection());					// If yes, build the structure around origin block
 			BlocksThatGenerated.push_back(At);
 		}
 	}

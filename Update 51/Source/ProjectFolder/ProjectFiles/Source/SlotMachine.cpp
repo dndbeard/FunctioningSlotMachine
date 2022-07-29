@@ -122,6 +122,31 @@ public:
 		return offset;
 	}
 
+
+	// Check if there's enough space around origin block (SlotMachineBlock) to generate the Slot Machine
+	static bool EnoughSpace(CoordinateInBlocks At, DirectionVectorInCentimeters Direction) {
+		Offset offset = SlotMachine::GetOffset(Direction);
+
+		// Check the space that will be occupied
+		for (int i = 1; i <= 4; i++) {
+			if (GetBlock(At + CoordinateInBlocks(-offset.X, -offset.Y, i)).Type != EBlockType::Air) return false;
+			if (GetBlock(At + CoordinateInBlocks(0, 0, i)).Type != EBlockType::Air) return false;
+			if (GetBlock(At + CoordinateInBlocks(offset.X, offset.Y, i)).Type != EBlockType::Air) return false;
+		}
+
+		// Check the space nearby (no two slot machines back to back! For reasons, just trust me
+		for (int i = 1; i <= 4; i++) {
+			if (BlockInArray(GetBlock(At + CoordinateInBlocks(offset.Y, offset.X, i)).CustomBlockID, ConsistsOf)) {
+				return false;
+			}
+			if (BlockInArray(GetBlock(At + CoordinateInBlocks(-offset.Y, -offset.X, i)).CustomBlockID, ConsistsOf)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	// Generate a Slot Machine from the origin block (SlotMachineBlock) at "At" coordinate
 	static void BuildHere(CoordinateInBlocks At, DirectionVectorInCentimeters Direction) {
 		Offset offset = GetOffset(Direction);
@@ -179,29 +204,7 @@ public:
 		if (ButtonCoords.X == -1 && ButtonCoords.Y == 0) return east;
 	}
 
-	// Check if there's enough space around origin block (SlotMachineBlock) to generate the Slot Machine
-	static bool EnoughSpace(CoordinateInBlocks At, DirectionVectorInCentimeters Direction) {
-		Offset offset = SlotMachine::GetOffset(Direction);
 
-		// Check the space that will be occupied
-		for (int i = 1; i <= 4; i++) {
-			if (GetBlock(At + CoordinateInBlocks(-offset.X, -offset.Y, i)).Type != EBlockType::Air) return false;
-			if (GetBlock(At + CoordinateInBlocks(0, 0, i)).Type != EBlockType::Air) return false;
-			if (GetBlock(At + CoordinateInBlocks(offset.X, offset.Y, i)).Type != EBlockType::Air) return false;
-		}
-
-		// Check the space nearby (no two slot machines back to back! For reasons, just trust me
-		for (int i = 1; i <= 4; i++) {
-			if (BlockInArray(GetBlock(At + CoordinateInBlocks(offset.Y, offset.X, i)).CustomBlockID, ConsistsOf)) {
-				return false;
-			}
-			if (BlockInArray(GetBlock(At + CoordinateInBlocks(-offset.Y, -offset.X, i)).CustomBlockID, ConsistsOf)) {
-				return false;
-			}
-		}
-
-		return true;
-	}
 
 
 };

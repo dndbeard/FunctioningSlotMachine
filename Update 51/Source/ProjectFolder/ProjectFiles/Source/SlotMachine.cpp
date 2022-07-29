@@ -5,7 +5,7 @@
 /*************************************
 *  Useful helper structures
 *************************************/
-enum Direction { north, south, west, east };
+enum Direction { north, south, west, east};
 
 struct Offset {
 	int X;
@@ -63,6 +63,19 @@ struct Block {
 class SlotMachine {
 public:
 
+	static Direction ReverseDirection(Direction direction) {
+		switch (direction) {
+		case north:
+			return south;
+		case south:
+			return north;
+		case east:
+			return west;
+		case west:
+			return east;
+		}
+	}
+
 	// Blocks that Slot Machine is made of
 	static constexpr UniqueID ConsistsOf [] = { FrameBlockID, SlotButtonBlockID, SlotMachineBlockID,
 		SlotZeroBlockID, SlotCherryBlockID, SlotBarBlockID, SlotBarBarBlockID, SlotBarBarBarBlockID, SlotSevenBlockID, SlotCrystalBlockID
@@ -80,8 +93,12 @@ public:
 	// General offset for placing the Slot Machine
 	// Used to generate and remove the Slot Machine
 	static Offset GetOffset(DirectionVectorInCentimeters Direction) {
+		return GetOffset(Offset::GetDirection(Direction));
+	}
+
+	static Offset GetOffset(Direction direction) {
 		Offset offset = Offset(0, 0);
-		switch (Offset::GetDirection(Direction)) {
+		switch (direction) {
 		case north:
 			offset.X = 1;
 			break;
@@ -134,7 +151,7 @@ public:
 			if (GetBlock(At + CoordinateInBlocks(offset.X, offset.Y, i)).Type != EBlockType::Air) return false;
 		}
 
-		// Check the space nearby (no two slot machines back to back! For reasons, just trust me
+		// Check the space nearby: no two slot machines back to back! For reasons, just trust me
 		for (int i = 1; i <= 4; i++) {
 			if (BlockInArray(GetBlock(At + CoordinateInBlocks(offset.Y, offset.X, i)).CustomBlockID, ConsistsOf)) {
 				return false;
@@ -153,17 +170,32 @@ public:
 		for (int i = 1; i <= 4; i++) {
 			if (i == 3) {  // Set the slots
 				SetBlock(At + CoordinateInBlocks(-offset.X, -offset.Y, i), SlotSevenBlockID);
-				SetBlock(At + CoordinateInBlocks(0, 0, i), SlotSevenBlockID);
-				SetBlock(At + CoordinateInBlocks(offset.X, offset.Y, i), SlotSevenBlockID);
+				SetBlock(At + CoordinateInBlocks(        0,         0, i), SlotSevenBlockID);
+				SetBlock(At + CoordinateInBlocks( offset.X,  offset.Y, i), SlotSevenBlockID);
 			}
 			else {			// Set the frame
 				SetBlock(At + CoordinateInBlocks(-offset.X, -offset.Y, i), FrameBlockID);
-				SetBlock(At + CoordinateInBlocks(0, 0, i), FrameBlockID);
-				SetBlock(At + CoordinateInBlocks(offset.X, offset.Y, i), FrameBlockID);
+				SetBlock(At + CoordinateInBlocks(        0,         0, i), FrameBlockID);
+				SetBlock(At + CoordinateInBlocks( offset.X,  offset.Y, i), FrameBlockID);
 			}
 		}
+		// Set the button
 		SetBlock(At + CoordinateInBlocks(-offset.X, offset.Y, 2), SlotButtonBlockID);
 	}
+
+	// Remove the whole structure
+	// At == origin block, Direction == where player is facing
+	void RemoveSlotMachine(CoordinateInBlocks At, DirectionVectorInCentimeters Direction) {
+		Offset offset = SlotMachine::GetOffset(SlotMachine::ReverseDirection(GetSlotMachineDirection(At)));
+
+		for (int i = 1; i <= 4; i++) {
+			SetBlock(At + CoordinateInBlocks(-offset.X, -offset.Y, i), EBlockType::Air);
+			SetBlock(At + CoordinateInBlocks(        0,         0, i), EBlockType::Air);
+			SetBlock(At + CoordinateInBlocks( offset.X,  offset.Y, i), EBlockType::Air);
+		}
+	}
+
+
 
 	// Search for a SlotButtonBlock from the origin point of SlotMachineBlock placed at "At" coordinates
 	// (1, 0, 2) (0, 1, 2) (-1, 0, 2), (0, -1, 2)

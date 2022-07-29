@@ -66,19 +66,8 @@ void Event_BlockPlaced(CoordinateInBlocks At, UniqueID CustomBlockID, bool Moved
 // Run every time a block is destroyed
 void Event_BlockDestroyed(CoordinateInBlocks At, UniqueID CustomBlockID, bool Moved)
 {
-	if (CustomBlockID == SlotMachineBlockID) {
-		std::vector<CoordinateInBlocks> temp = {};
-		// Check if what we are trying to remove was indeed placed by this specific block
-		for (CoordinateInBlocks coords : BlocksThatGenerated) {
-			if (coords == At) {
-				SlotMachine::RemoveSlotMachine(At, GetPlayerViewDirection());
-			}
-			else {
-				temp.push_back(coords); // This whole vector stuff could be expensive, consider iterators
-			}
-		}
-		BlocksThatGenerated = temp;
-	}
+	SlotMachine::RemoveSlotMachine(At, GetPlayerViewDirection());
+
 }
 
 
@@ -165,7 +154,8 @@ void Event_OnExit()
 // Run every time any block is placed by the player
 void Event_AnyBlockPlaced(CoordinateInBlocks At, BlockInfo Type, bool Moved)
 {
-	//SpawnHintText(At + up, GetPlayerViewDirection().ToString(), 5);
+	//Direction direction = Offset::GetDirection(GetPlayerViewDirection());
+	//SpawnHintText(At + up, Offset::DirectionToString(direction), 5);
 }
 
 // Run every time any block is destroyed by the player

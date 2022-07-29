@@ -11,8 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Block.cpp" />
+    <ClCompile Include="Source\SlotMachineBlueprint.cpp" />
     <ClCompile Include="Source\SlotMachine.cpp" />
     <ClCompile Include="Source\SlotRoll.cpp" />
+    <ClInclude Include="Source\Block.h" />
     <ClInclude Include="Source\GameAPI.cpp" />
     <ClCompile Include="Source\Constants.cpp" />
     <ClCompile Include="Source\GameFunctions.cpp" />
@@ -64,6 +67,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Slow (Debugging)|x64'">
     <ClCompile>

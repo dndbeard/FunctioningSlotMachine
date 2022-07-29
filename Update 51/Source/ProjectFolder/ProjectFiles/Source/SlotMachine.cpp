@@ -1,6 +1,6 @@
-#include "GameAPI.h"
-#include "Constants.cpp"
 #include <vector>
+#include <string>
+#include "SlotMachineBlueprint.cpp"
 
 /*************************************
 *  Useful helper structures
@@ -8,6 +8,7 @@
 enum Direction { north, south, west, east};
 
 struct Offset {
+public:
 	int X;
 	int Y;
 	int Z;
@@ -23,6 +24,19 @@ struct Offset {
 		this->Z = Z;
 	}
 
+
+	static std::wstring DirectionToString(Direction direction) {
+		switch (direction) {
+		case north:
+			return L"north";
+		case south:
+			return L"south";
+		case west:
+			return L"west";
+		case east:
+			return L"east";
+		}
+	}
 	// Get general direction the player is looking
 	static Direction GetDirection(DirectionVectorInCentimeters Direction) {
 		int offsetX = 0;
@@ -45,15 +59,6 @@ struct Offset {
 	}
 };
 
-struct Block {
-	BlockInfo info;
-	CoordinateInBlocks coords;
-
-	Block(BlockInfo info, CoordinateInBlocks coords) {
-		this->info = info;
-		this->coords = coords;
-	}
-};
 
 /*****************************
 * A static class that handles various calculations
@@ -166,6 +171,13 @@ public:
 
 	// Generate a Slot Machine from the origin block (SlotMachineBlock) at "At" coordinate
 	static void BuildHere(CoordinateInBlocks At, DirectionVectorInCentimeters Direction) {
+		SlotMachineBlueprint bprint = SlotMachineBlueprint();
+		//SpawnHintText(At + up, std::to_wstring(bprint.size), 3);
+		for (int i = 0; i < bprint.size; i++) {
+			SetBlock(At + bprint.blocks[i].coords, bprint.blocks[i].info);
+			//SpawnHintText(At + up, std::to_wstring(i), 3);
+		}
+		/*
 		Offset offset = GetOffset(Direction);
 		for (int i = 1; i <= 4; i++) {
 			if (i == 3) {  // Set the slots
@@ -181,6 +193,7 @@ public:
 		}
 		// Set the button
 		SetBlock(At + CoordinateInBlocks(-offset.X, offset.Y, 2), SlotButtonBlockID);
+		*/
 	}
 
 	// Remove the whole structure
@@ -189,9 +202,9 @@ public:
 		Offset offset = SlotMachine::GetOffset(SlotMachine::ReverseDirection(GetSlotMachineDirection(At)));
 
 		for (int i = 1; i <= 4; i++) {
-			SetBlock(At + CoordinateInBlocks(-offset.X, -offset.Y, i), EBlockType::Air);
-			SetBlock(At + CoordinateInBlocks(        0,         0, i), EBlockType::Air);
-			SetBlock(At + CoordinateInBlocks( offset.X,  offset.Y, i), EBlockType::Air);
+			SetBlock(At + CoordinateInBlocks(-offset.X, -offset.Y, i), EBlockType::Air); // 1, 0, i
+			SetBlock(At + CoordinateInBlocks(        0,         0, i), EBlockType::Air); 
+			SetBlock(At + CoordinateInBlocks( offset.X,  offset.Y, i), EBlockType::Air); // -1, 0, i
 		}
 	}
 

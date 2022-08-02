@@ -15,4 +15,6 @@ SlotMachineBlueprint::SlotMachineBlueprint() {
 	blocks[9] = Block(-1, 0, 2, SlotButtonBlockID);
 	blocks[10] = Block(-1, 0, 3, SlotBarBlockID);
 	blocks[11] = Block(-1, 0, 4, FrameBlockID);
+
+	output = &blocks[1]; // this is where the rewards come out from
 };

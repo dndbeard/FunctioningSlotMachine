@@ -2,19 +2,6 @@
 #include <string>
 #include "SlotMachine.h"
 
-Direction SlotMachine::ReverseDirection(Direction direction) {
-	switch (direction) {
-	case Direction::north:
-		return Direction::south;
-	case Direction::south:
-		return Direction::north;
-	case Direction::east:
-		return Direction::west;
-	case Direction::west:
-		return Direction::east;
-	}
-}
-
 // Check if a block is among those that Slot Machine is made of
 bool SlotMachine::BlockInArray(UniqueID block, const UniqueID blockArray[]) {
 	for (int i = 0; i < (sizeof(blockArray) / sizeof(*blockArray)); i++) {
@@ -55,19 +42,19 @@ Offset SlotMachine::GetOutputOffset(DirectionVectorInCentimeters Direction) {
 	switch (Offset::GetDirection(Direction)) {
 	case Direction::north:
 		offset.Y = -1;
-		offset.X = -1;
+		offset.X = 1;
 		break;
 	case Direction::south:
 		offset.Y = 1;
-		offset.X = 1;
+		offset.X = -1;
 		break;
 	case Direction::west:
 		offset.X = 1;
-		offset.Y = -1;
+		offset.Y = 1;
 		break;
 	case Direction::east:
 		offset.X = -1;
-		offset.Y = 1;
+		offset.Y = -1;
 		break;
 	}
 	return offset;
@@ -99,12 +86,12 @@ bool SlotMachine::EnoughSpace(CoordinateInBlocks At, DirectionVectorInCentimeter
 
 // Generate a Slot Machine from the origin block (SlotMachineBlock) at "At" coordinate
 void SlotMachine::BuildHere(CoordinateInBlocks At, DirectionVectorInCentimeters Direction) {
-	SlotMachineBlueprint bprint = SlotMachineBlueprint();
-	//SpawnHintText(At + up, std::to_wstring(bprint.size), 3);
+
+	// blueprint holds information on how to build Slot Machine
+	SlotMachineBlueprint bprint = SlotMachineBlueprint(); 
 	for (int i = 0; i < bprint.size; i++) {
 		SetBlock(At + bprint.blocks[i].coords, bprint.blocks[i].info);
-		Log(L"Set block: " + std::to_wstring(i) + L" " + std::to_wstring(bprint.blocks[i].info.CustomBlockID));
-		//SpawnHintText(At + up, std::to_wstring(i), 3);
+
 	}
 
 }
@@ -112,18 +99,17 @@ void SlotMachine::BuildHere(CoordinateInBlocks At, DirectionVectorInCentimeters 
 // Remove the whole structure
 // At == origin block, Direction == where player is facing
 void SlotMachine::RemoveSlotMachine(CoordinateInBlocks At, DirectionVectorInCentimeters Direction) {
+
+	// blueprint holds information on how to build Slot Machine
 	SlotMachineBlueprint bprint = SlotMachineBlueprint();
 	for (int i = 0; i < bprint.size; i++) {
 		SetBlock(At + bprint.blocks[i].coords, EBlockType::Air);
-		//SpawnHintText(At + up, std::to_wstring(i), 3);
 	}
 
 }
 
 
-
 // Search for a SlotButtonBlock from the origin point of SlotMachineBlock placed at "At" coordinates
-// (1, 0, 2) (0, 1, 2) (-1, 0, 2), (0, -1, 2)
 CoordinateInBlocks SlotMachine::GetButtonCoordinates(CoordinateInBlocks At) {
 	CoordinateInBlocks coords = At + CoordinateInBlocks(1, 0, 2);
 	BlockInfo found = GetBlock(coords);

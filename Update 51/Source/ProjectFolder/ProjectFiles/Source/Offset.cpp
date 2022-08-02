@@ -57,4 +57,19 @@ public:
 		}
 		return Direction::north;
 	}
+
+	// Get the opposite of the given direction
+	Direction ReverseDirection(Direction direction) {
+		switch (direction) {
+		case Direction::north:
+			return Direction::south;
+		case Direction::south:
+			return Direction::north;
+		case Direction::east:
+			return Direction::west;
+		case Direction::west:
+			return Direction::east;
+		}
+	}
+
 };

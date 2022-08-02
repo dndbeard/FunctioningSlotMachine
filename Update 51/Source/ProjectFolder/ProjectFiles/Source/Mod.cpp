@@ -9,15 +9,9 @@ std::vector<CoordinateInBlocks> BlocksThatGenerated = {};
 
 
 void RemoveSlotMachine(CoordinateInBlocks At, DirectionVectorInCentimeters Direction) {
-	Offset offset = SlotMachine::GetOffset(Direction);
 
-	for (int i = 1; i <= 4; i++) {
-		SetBlock(At + CoordinateInBlocks(-offset.X, -offset.Y, i), EBlockType::Air);
-		SetBlock(At + CoordinateInBlocks(0, 0, i), EBlockType::Air);
-		SetBlock(At + CoordinateInBlocks(offset.X, offset.Y, i), EBlockType::Air);
-	}
-	SetBlock(At + CoordinateInBlocks(-offset.X * 2, offset.Y * 2, 3), EBlockType::Air);
-
+	// Delete Slot Machine blocks
+	SlotMachine::RemoveSlotMachine(At, Direction);
 
 }
 

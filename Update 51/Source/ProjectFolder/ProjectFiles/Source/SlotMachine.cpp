@@ -103,25 +103,10 @@ void SlotMachine::BuildHere(CoordinateInBlocks At, DirectionVectorInCentimeters 
 	//SpawnHintText(At + up, std::to_wstring(bprint.size), 3);
 	for (int i = 0; i < bprint.size; i++) {
 		SetBlock(At + bprint.blocks[i].coords, bprint.blocks[i].info);
+		Log(L"Set block: " + std::to_wstring(i) + L" " + std::to_wstring(bprint.blocks[i].info.CustomBlockID));
 		//SpawnHintText(At + up, std::to_wstring(i), 3);
 	}
-	/*
-	Offset offset = GetOffset(Direction);
-	for (int i = 1; i <= 4; i++) {
-		if (i == 3) {  // Set the slots
-			SetBlock(At + CoordinateInBlocks(-offset.X, -offset.Y, i), SlotAnimatedBlockID);
-			SetBlock(At + CoordinateInBlocks(        0,         0, i), SlotAnimatedBlockID);
-			SetBlock(At + CoordinateInBlocks( offset.X,  offset.Y, i), SlotAnimatedBlockID);
-		}
-		else {			// Set the frame
-			SetBlock(At + CoordinateInBlocks(-offset.X, -offset.Y, i), FrameBlockID);
-			SetBlock(At + CoordinateInBlocks(        0,         0, i), FrameBlockID);
-			SetBlock(At + CoordinateInBlocks( offset.X,  offset.Y, i), FrameBlockID);
-		}
-	}
-	// Set the button
-	SetBlock(At + CoordinateInBlocks(-offset.X, offset.Y, 2), SlotButtonBlockID);
-	*/
+
 }
 
 // Remove the whole structure
@@ -132,14 +117,7 @@ void SlotMachine::RemoveSlotMachine(CoordinateInBlocks At, DirectionVectorInCent
 		SetBlock(At + bprint.blocks[i].coords, EBlockType::Air);
 		//SpawnHintText(At + up, std::to_wstring(i), 3);
 	}
-	/*
-	Offset offset = SlotMachine::GetOffset(SlotMachine::ReverseDirection(GetSlotMachineDirection(At)));
-		for (int i = 1; i <= 4; i++) {
-		SetBlock(At + CoordinateInBlocks(-offset.X, -offset.Y, i), EBlockType::Air); // 1, 0, i
-		SetBlock(At + CoordinateInBlocks(        0,         0, i), EBlockType::Air); 
-		SetBlock(At + CoordinateInBlocks( offset.X,  offset.Y, i), EBlockType::Air); // -1, 0, i
-	}
-	*/
+
 }
 
 

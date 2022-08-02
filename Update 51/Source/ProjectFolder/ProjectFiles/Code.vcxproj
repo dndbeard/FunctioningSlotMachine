@@ -11,13 +11,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Random.cpp" />
+    <ClCompile Include="Source\Offset.cpp" />
     <ClCompile Include="Source\Block.cpp" />
     <ClCompile Include="Source\SlotMachineBlueprint.cpp" />
     <ClCompile Include="Source\SlotMachine.cpp" />
     <ClCompile Include="Source\SlotRoll.cpp" />
+    <ClInclude Include="Source\SlotMachine.h" />
+    <ClInclude Include="Source\SlotMachineBlueprint.h" />
+    <ClInclude Include="Source\SlotRoll.h" />
     <ClInclude Include="Source\Block.h" />
     <ClInclude Include="Source\GameAPI.cpp" />
-    <ClCompile Include="Source\Constants.cpp" />
+    <ClCompile Include="Source\Constants.h" />
     <ClCompile Include="Source\GameFunctions.cpp" />
     <ClInclude Include="Source\Mod.cpp" />
     <ClCompile Include="Source\Internals.cpp" />
@@ -27,6 +32,10 @@
     <ClInclude Include="Source\GameAPI.h" />
     <ClInclude Include="Source\GameFunctions.h" />
     <ClInclude Include="Source\Internals.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\AfterBuild.bat" />
+    <None Include="Source\AfterBuildDebug.bat" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -98,6 +107,7 @@
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
       <FloatingPointModel>Fast</FloatingPointModel>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

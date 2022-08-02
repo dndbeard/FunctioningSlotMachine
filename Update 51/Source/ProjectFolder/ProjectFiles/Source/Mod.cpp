@@ -1,8 +1,5 @@
-#include "GameAPI.h"
-#include "SlotRoll.cpp"
-#include "SlotMachine.cpp"
-#include <string>
-#include <vector>
+#include "SlotRoll.h"
+#include "SlotMachine.h"
 #include <cmath> 
 
 
@@ -67,6 +64,7 @@ void Event_BlockPlaced(CoordinateInBlocks At, UniqueID CustomBlockID, bool Moved
 void Event_BlockDestroyed(CoordinateInBlocks At, UniqueID CustomBlockID, bool Moved)
 {
 	SlotMachine::RemoveSlotMachine(At, GetPlayerViewDirection());
+	int test = GetRandomInt<0, 100>();
 
 }
 

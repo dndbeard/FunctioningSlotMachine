@@ -24,9 +24,6 @@
     <ClCompile Include="Source\GameFunctions.cpp">
       <Filter>Source Files\InternalFiles</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Constants.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\SlotMachine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -37,6 +34,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\SlotMachineBlueprint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Offset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Constants.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Random.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,5 +68,22 @@
     <ClInclude Include="Source\GameAPI.h">
       <Filter>Source Files\InternalFiles</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SlotRoll.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SlotMachineBlueprint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SlotMachine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\AfterBuild.bat">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="Source\AfterBuildDebug.bat">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

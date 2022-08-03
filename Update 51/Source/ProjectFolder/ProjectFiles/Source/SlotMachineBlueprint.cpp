@@ -44,12 +44,13 @@ SlotMachineBlueprint::SlotMachineBlueprint(int variant) {
 		blocks[10] = Block(0, 1, 3, SlotBarBlockID);
 		blocks[11] = Block(0, 1, 4, FrameBlockID);
 
-		output = &blocks[1];
 		button = &blocks[5];
 
 		occupiedBlocks[0] = Block(0, 1, 2, SlotButtonBlockID);
 		occupiedBlocks[1] = Block(1, 0, 2, SlotButtonBlockID);
 		occupiedBlocks[2] = Block(-1, 0, 2, SlotButtonBlockID);
+
+		outputRelativeToButton = CoordinateInBlocks(1, 1, 0);
 		break;
 
 	case 2: // south
@@ -68,12 +69,13 @@ SlotMachineBlueprint::SlotMachineBlueprint(int variant) {
 		blocks[10] = Block(0, 1, 3, SlotBarBlockID);
 		blocks[11] = Block(0, 1, 4, FrameBlockID);
 
-		output = &blocks[1];
 		button = &blocks[9];
 
 		occupiedBlocks[0] = Block(0, -1, 2, SlotButtonBlockID);
 		occupiedBlocks[1] = Block(1, 0, 2, SlotButtonBlockID);
 		occupiedBlocks[2] = Block(-1, 0, 2, SlotButtonBlockID);
+
+		outputRelativeToButton = CoordinateInBlocks(-1, -1, 0);
 		break;
 
 	case 3: // west
@@ -92,12 +94,13 @@ SlotMachineBlueprint::SlotMachineBlueprint(int variant) {
 		blocks[10] = Block(-1, 0, 3, SlotBarBlockID);
 		blocks[11] = Block(-1, 0, 4, FrameBlockID);
 
-		output = &blocks[1]; 
 		button = &blocks[9];
 
 		occupiedBlocks[0] = Block(0, 1, 2, SlotButtonBlockID);
 		occupiedBlocks[1] = Block(1, 0, 2, SlotButtonBlockID);
 		occupiedBlocks[2] = Block(0, -1, 2, SlotButtonBlockID);
+
+		outputRelativeToButton = CoordinateInBlocks(1, -1, 0);
 		break;
 
 	case 4: // east
@@ -116,12 +119,14 @@ SlotMachineBlueprint::SlotMachineBlueprint(int variant) {
 		blocks[10] = Block(-1, 0, 3, SlotBarBlockID);
 		blocks[11] = Block(-1, 0, 4, FrameBlockID);
 
-		output = &blocks[1];
 		button = &blocks[5];
 
 		occupiedBlocks[0] = Block(0, 1, 2, SlotButtonBlockID);
 		occupiedBlocks[1] = Block(0, -1, 2, SlotButtonBlockID);
 		occupiedBlocks[2] = Block(-1, 0, 2, SlotButtonBlockID);
+
+		outputRelativeToButton = CoordinateInBlocks(-1, 1, 0);
+
 		break;
 
 	default:

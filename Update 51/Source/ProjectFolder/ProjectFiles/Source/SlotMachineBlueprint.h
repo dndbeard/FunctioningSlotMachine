@@ -8,7 +8,7 @@ public:
 	static const int size = 12;		
 	static const int occupiedSize = 3;
 	static const int variantAmount = 4;
-	Block* output;					
+	CoordinateInBlocks outputRelativeToButton;					
 	Block* button;
 	Block blocks[size];
 	Block occupiedBlocks[occupiedSize];

@@ -100,10 +100,10 @@ void SlotMachine::BuildHere(CoordinateInBlocks at, DirectionVectorInCentimeters 
 // Remove the whole structure
 // At == origin block, Direction == where player is facing
 void SlotMachine::RemoveSlotMachine(CoordinateInBlocks at, DirectionVectorInCentimeters direction) {
-	Direction playerFacingDirection = Offset::GetDirection(direction);
+	Direction machineFacingDirection = SlotMachine::GetSlotMachineDirection(at);
 
 	// blueprint holds information on how to build Slot Machine
-	SlotMachineBlueprint bprint = SlotMachineBlueprint(Offset::ReverseDirection(playerFacingDirection));
+	SlotMachineBlueprint bprint = SlotMachineBlueprint(machineFacingDirection);
 	for (int i = 0; i < bprint.size; i++) {
 		SetBlock(at + bprint.blocks[i].coords, EBlockType::Air);
 	}

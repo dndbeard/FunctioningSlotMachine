@@ -2,11 +2,6 @@
 #include "SlotMachine.h"
 #include <cmath> 
 
-
-
-// Store slot machine blocks that generated structures
-std::vector<CoordinateInBlocks> BlocksThatGenerated = {};
-
 /************************************************************
 	Config Variables (Set these to whatever you need. They are automatically read by the game.)
 *************************************************************/
@@ -19,7 +14,7 @@ UniqueID ThisModUniqueIDs[] = { SlotMachineBlockID, FrameBlockID, SlotButtonBloc
 }; // All the UniqueIDs this mod manages. Functions like Event_BlockPlaced are only called for blocks of IDs mentioned here. 
 
 float TickRate = 1;							 // Set how many times per second Event_Tick() is called. 0 means the Event_Tick() function is never called.
-int test = GetRandomInt<0, 100>();
+int test = GetRandomInt<0, 100>();			 // DON'T REMOVE THIS! 
 
 /*************************************************************
 //	Functions (Run automatically by the game, you can put any code you want into them)
@@ -32,13 +27,12 @@ void Event_BlockPlaced(CoordinateInBlocks At, UniqueID CustomBlockID, bool Moved
 	if (CustomBlockID == SlotMachineBlockID) {
 
 		if (!SlotMachine::EnoughSpace(At, GetPlayerViewDirection())) {				// Check if there is enough space to place Slot Machine
-			SetBlock(At, EBlockType::Air);									// If not, remove placed block and spawn hint
+			SetBlock(At, EBlockType::Air);									// If not, remove placed block, spawn block item and spawn hint
 			SpawnBlockItem(At, SlotMachineBlockID);
 			SpawnHintText(At, L"Not enough space to place!", 3);
 		}
 		else {
 			SlotMachine::BuildHere(At, GetPlayerViewDirection());					// If yes, build the structure around origin block
-			BlocksThatGenerated.push_back(At);
 		}
 	}
 
@@ -146,8 +140,7 @@ void Event_OnExit()
 // Run every time any block is placed by the player
 void Event_AnyBlockPlaced(CoordinateInBlocks At, BlockInfo Type, bool Moved)
 {
-	//Direction direction = Offset::GetDirection(GetPlayerViewDirection());
-	//SpawnHintText(At + up, Offset::DirectionToString(direction), 5);
+
 }
 
 // Run every time any block is destroyed by the player

@@ -16,6 +16,7 @@
     <ClCompile Include="Source\SlotMachineBlueprint.cpp" />
     <ClCompile Include="Source\SlotMachine.cpp" />
     <ClCompile Include="Source\SlotRoll.cpp" />
+    <ClInclude Include="Source\Structure\IBlueprint.h" />
     <ClInclude Include="Source\SlotMachine.h" />
     <ClInclude Include="Source\SlotMachineBlueprint.h" />
     <ClInclude Include="Source\SlotRoll.h" />

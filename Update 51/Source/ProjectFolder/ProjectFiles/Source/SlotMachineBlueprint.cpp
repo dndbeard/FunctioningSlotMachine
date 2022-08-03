@@ -1,18 +1,20 @@
 #include "SlotMachineBlueprint.h"
 
+// Create all variations once and store them here
 static const SlotMachineBlueprint northDirectedMachineBlueprint = SlotMachineBlueprint(1);
 static const SlotMachineBlueprint southDirectedMachineBlueprint = SlotMachineBlueprint(2);
 static const SlotMachineBlueprint westDirectedMachineBlueprint = SlotMachineBlueprint(3);
 static const SlotMachineBlueprint eastDirectedMachineBlueprint = SlotMachineBlueprint(4);
 
-static const SlotMachineBlueprint allBlueprints[SlotMachineBlueprint::blueprintAmount] = {  northDirectedMachineBlueprint, 
+// Put all variations into array
+static const SlotMachineBlueprint allBlueprints[SlotMachineBlueprint::variantAmount] = {  northDirectedMachineBlueprint,
 																							southDirectedMachineBlueprint, 
 																							westDirectedMachineBlueprint,
 																							eastDirectedMachineBlueprint
 																						 };
 
-SlotMachineBlueprint SlotMachineBlueprint::getBlueprint(int x) {
-	switch (x) {
+SlotMachineBlueprint SlotMachineBlueprint::getBlueprint(int variant) {
+	switch (variant) {
 	case 1:
 		return northDirectedMachineBlueprint;
 	case 2:
@@ -27,27 +29,11 @@ SlotMachineBlueprint SlotMachineBlueprint::getBlueprint(int x) {
 }
 
 SlotMachineBlueprint::SlotMachineBlueprint() {
-	blocks[0] = Block(0, 0, 1, FrameBlockID);
-	blocks[1] = Block(0, 0, 2, FrameBlockID);
-	blocks[2] = Block(0, 0, 3, SlotBarBlockID);
-	blocks[3] = Block(0, 0, 4, FrameBlockID);
-
-	blocks[4] = Block(0, -1, 1, FrameBlockID);
-	blocks[5] = Block(0, -1, 2, SlotButtonBlockID);
-	blocks[6] = Block(0, -1, 3, SlotBarBlockID);
-	blocks[7] = Block(0, -1, 4, FrameBlockID);
-
-	blocks[8] = Block(0, 1, 1, FrameBlockID);
-	blocks[9] = Block(0, 1, 2, FrameBlockID);
-	blocks[10] = Block(0, 1, 3, SlotBarBlockID);
-	blocks[11] = Block(0, 1, 4, FrameBlockID);
-
-	output = &blocks[1]; // this is where the rewards come out from
-	button = &blocks[5];
+	SlotMachineBlueprint(1);
 }
 
-SlotMachineBlueprint::SlotMachineBlueprint(int x) {
-	switch (x) { // Direction THE MACHINE is facing
+SlotMachineBlueprint::SlotMachineBlueprint(int variant) {
+	switch (variant) { // Direction THE MACHINE is facing
 	case 1: // north
 		blocks[0] = Block(0, 0, 1, FrameBlockID);
 		blocks[1] = Block(0, 0, 2, FrameBlockID);
@@ -64,9 +50,10 @@ SlotMachineBlueprint::SlotMachineBlueprint(int x) {
 		blocks[10] = Block(0, 1, 3, SlotBarBlockID);
 		blocks[11] = Block(0, 1, 4, FrameBlockID);
 
-		output = &blocks[1]; // this is where the rewards come out from
+		output = &blocks[1];
 		button = &blocks[5];
 		break;
+
 	case 2: // south
 		blocks[0] = Block(0, 0, 1, FrameBlockID);
 		blocks[1] = Block(0, 0, 2, FrameBlockID);
@@ -83,9 +70,10 @@ SlotMachineBlueprint::SlotMachineBlueprint(int x) {
 		blocks[10] = Block(0, 1, 3, SlotBarBlockID);
 		blocks[11] = Block(0, 1, 4, FrameBlockID);
 
-		output = &blocks[1]; // this is where the rewards come out from
+		output = &blocks[1];
 		button = &blocks[9];
 		break;
+
 	case 3: // west
 		blocks[0] = Block(0, 0, 1, FrameBlockID);
 		blocks[1] = Block(0, 0, 2, FrameBlockID);
@@ -102,9 +90,10 @@ SlotMachineBlueprint::SlotMachineBlueprint(int x) {
 		blocks[10] = Block(-1, 0, 3, SlotBarBlockID);
 		blocks[11] = Block(-1, 0, 4, FrameBlockID);
 
-		output = &blocks[1]; // this is where the rewards come out from
+		output = &blocks[1]; 
 		button = &blocks[9];
 		break;
+
 	case 4: // east
 		blocks[0] = Block(0, 0, 1, FrameBlockID);
 		blocks[1] = Block(0, 0, 2, FrameBlockID);
@@ -121,9 +110,13 @@ SlotMachineBlueprint::SlotMachineBlueprint(int x) {
 		blocks[10] = Block(-1, 0, 3, SlotBarBlockID);
 		blocks[11] = Block(-1, 0, 4, FrameBlockID);
 
-		output = &blocks[1]; // this is where the rewards come out from
+		output = &blocks[1];
 		button = &blocks[5];
 		break;
+
+	default:
+		throw std::exception("Invalid number of blueprint variation! Can only be between 1 and 4");
 	}
+
 
 }

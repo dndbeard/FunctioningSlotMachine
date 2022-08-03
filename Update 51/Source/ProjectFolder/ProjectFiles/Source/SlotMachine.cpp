@@ -132,10 +132,10 @@ void SlotMachine::RemoveSlotMachine(CoordinateInBlocks at) {
 // Search for a SlotButtonBlock from the origin point of SlotMachineBlock placed at "At" coordinates
 CoordinateInBlocks SlotMachine::GetButtonCoordinates(CoordinateInBlocks At) {
 
-	for (int i = 1; i <= SlotMachineBlueprint::blueprintAmount; i++) {
+	for (int variant = 1; variant <= SlotMachineBlueprint::variantAmount; variant++) {
 		SlotMachineBlueprint bprint;
 		try {
-			bprint = SlotMachineBlueprint::getBlueprint(i);
+			bprint = SlotMachineBlueprint::getBlueprint(variant);
 		}
 		catch (std::exception& e) {
 			Log(modName + L" did an oopsie!");

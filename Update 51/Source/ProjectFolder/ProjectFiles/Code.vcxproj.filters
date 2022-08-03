@@ -74,6 +74,9 @@
     <ClInclude Include="Source\SlotMachine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Structure\IBlueprint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\AfterBuild.bat">

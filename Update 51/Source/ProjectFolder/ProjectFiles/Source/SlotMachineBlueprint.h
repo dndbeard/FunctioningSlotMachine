@@ -6,7 +6,7 @@
 class SlotMachineBlueprint {
 public:
 	static const int size = 12;		
-	static const int occupiedSize = 3;
+	static const int occupiedSize = 7;
 	static const int variantAmount = 4;
 	CoordinateInBlocks outputRelativeToButton;					
 	Block* button;

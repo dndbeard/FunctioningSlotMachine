@@ -50,6 +50,12 @@ SlotMachineBlueprint::SlotMachineBlueprint(int variant) {
 		occupiedBlocks[1] = Block(1, 0, 2, SlotButtonBlockID);
 		occupiedBlocks[2] = Block(-1, 0, 2, SlotButtonBlockID);
 
+		occupiedBlocks[3] = Block(0, 2, 0, SlotMachineBlockID);
+		occupiedBlocks[4] = Block(0, -2, 0, SlotMachineBlockID);
+		occupiedBlocks[5] = Block(2, 0, 0, SlotMachineBlockID);
+		occupiedBlocks[6] = Block(-2, 0, 0, SlotMachineBlockID);
+
+
 		outputRelativeToButton = CoordinateInBlocks(1, 1, 0);
 		break;
 
@@ -74,6 +80,11 @@ SlotMachineBlueprint::SlotMachineBlueprint(int variant) {
 		occupiedBlocks[0] = Block(0, -1, 2, SlotButtonBlockID);
 		occupiedBlocks[1] = Block(1, 0, 2, SlotButtonBlockID);
 		occupiedBlocks[2] = Block(-1, 0, 2, SlotButtonBlockID);
+
+		occupiedBlocks[3] = Block(0, 2, 0, SlotMachineBlockID);
+		occupiedBlocks[4] = Block(0, -2, 0, SlotMachineBlockID);
+		occupiedBlocks[5] = Block(2, 0, 0, SlotMachineBlockID);
+		occupiedBlocks[6] = Block(-2, 0, 0, SlotMachineBlockID);
 
 		outputRelativeToButton = CoordinateInBlocks(-1, -1, 0);
 		break;
@@ -100,6 +111,11 @@ SlotMachineBlueprint::SlotMachineBlueprint(int variant) {
 		occupiedBlocks[1] = Block(1, 0, 2, SlotButtonBlockID);
 		occupiedBlocks[2] = Block(0, -1, 2, SlotButtonBlockID);
 
+		occupiedBlocks[3] = Block(0, 2, 0, SlotMachineBlockID);
+		occupiedBlocks[4] = Block(0, -2, 0, SlotMachineBlockID);
+		occupiedBlocks[5] = Block(2, 0, 0, SlotMachineBlockID);
+		occupiedBlocks[6] = Block(-2, 0, 0, SlotMachineBlockID);
+
 		outputRelativeToButton = CoordinateInBlocks(1, -1, 0);
 		break;
 
@@ -124,6 +140,11 @@ SlotMachineBlueprint::SlotMachineBlueprint(int variant) {
 		occupiedBlocks[0] = Block(0, 1, 2, SlotButtonBlockID);
 		occupiedBlocks[1] = Block(0, -1, 2, SlotButtonBlockID);
 		occupiedBlocks[2] = Block(-1, 0, 2, SlotButtonBlockID);
+
+		occupiedBlocks[3] = Block(0, 2, 0, SlotMachineBlockID);
+		occupiedBlocks[4] = Block(0, -2, 0, SlotMachineBlockID);
+		occupiedBlocks[5] = Block(2, 0, 0, SlotMachineBlockID);
+		occupiedBlocks[6] = Block(-2, 0, 0, SlotMachineBlockID);
 
 		outputRelativeToButton = CoordinateInBlocks(-1, 1, 0);
 

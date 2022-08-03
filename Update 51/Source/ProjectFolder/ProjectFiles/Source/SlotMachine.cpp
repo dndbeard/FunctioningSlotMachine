@@ -98,6 +98,8 @@ CoordinateInBlocks SlotMachine::GetButtonCoordinates(CoordinateInBlocks At) {
 
 	throw std::invalid_argument("Button was not found! The structure is probably missing or invalid.");
 }
+
+
 	
 // Get a general direction a generated Slot Machine is facing
 // CAREFUL!!! This direction is  OPPOSITE of where player's view is directed when generating a Slot Machine
@@ -108,3 +110,57 @@ Direction SlotMachine::GetSlotMachineDirection(CoordinateInBlocks At) {
 	if (ButtonCoords.X == 1 && ButtonCoords.Y == 0) return Direction::east;
 	if (ButtonCoords.X == -1 && ButtonCoords.Y == 0) return Direction::west;
 }
+
+
+std::pair<CoordinateInBlocks, SlotMachineBlueprint> SlotMachine::GetBlueprintVariantFromButton(CoordinateInBlocks At)
+{
+	for (int variant = 1; variant <= SlotMachineBlueprint::variantAmount; variant++) {
+		SlotMachineBlueprint bprint;
+		try {
+			bprint = SlotMachineBlueprint::getBlueprint(variant);
+		}
+		catch (std::exception& e) {
+			Log(modName + L" did an oopsie!");
+			throw e;
+		}
+		CoordinateInBlocks offsetToOrigin = CoordinateInBlocks(
+			-bprint.button->coords.X,
+			-bprint.button->coords.Y,
+			-bprint.button->coords.Z
+		);
+
+		if (GetBlock(At + offsetToOrigin).CustomBlockID == SlotMachineBlockID) {
+			return std::make_pair(At + offsetToOrigin, bprint);
+		}
+	}
+}
+
+bool SlotMachine::IsSlot(UniqueID ID) {
+	return ID == SlotBarBarBarBlockID ||
+		ID == SlotBarBarBlockID ||
+		ID == SlotBarBlockID ||
+		ID == SlotCherryBlockID ||
+		ID == SlotCrystalBlockID ||
+		ID == SlotSevenBlockID ||
+		ID == SlotZeroBlockID
+		;
+}
+
+
+void SlotMachine::LetsRoll(CoordinateInBlocks buttonCoordinates) {
+	CoordinateInBlocks originBlockCoordinate;
+	SlotMachineBlueprint bprint;
+
+	std::pair pairOfValues = GetBlueprintVariantFromButton(buttonCoordinates);
+	originBlockCoordinate = pairOfValues.first;
+	bprint = pairOfValues.second;
+
+	for (int i = 0; i < bprint.size; i++) {
+		if (IsSlot(bprint.blocks[i].info.CustomBlockID)) {
+			SetBlock(bprint.blocks[i].coords, SlotAnimatedBlockID);
+		}
+	}
+
+
+}
+

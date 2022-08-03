@@ -35,6 +35,14 @@ public:
 	// (1, 0, 2) (0, 1, 2) (-1, 0, 2), (0, -1, 2)
 	static CoordinateInBlocks GetButtonCoordinates(CoordinateInBlocks At);
 
+	static void LetsRoll(CoordinateInBlocks buttonCoordinates);
+
+	// Given coordinates of SlotButtonBlock, figure out the variant of Slot Machine
+	static std::pair<CoordinateInBlocks, SlotMachineBlueprint> GetBlueprintVariantFromButton(CoordinateInBlocks At);
+
+	// Check if block is one of the slots (cherry, seven, bars, etc.)
+	static bool IsSlot(UniqueID ID);
+
 	// Get a general direction a generated Slot Machine is facing
 	// CAREFUL!!! This direction is  OPPOSITE of where player's view is directed when generating a Slot Machine
 	static Direction GetSlotMachineDirection(CoordinateInBlocks At);

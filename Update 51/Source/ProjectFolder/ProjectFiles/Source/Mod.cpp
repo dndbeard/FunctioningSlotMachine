@@ -61,6 +61,7 @@ void Event_BlockHitByTool(CoordinateInBlocks At, UniqueID CustomBlockID, wString
 		SlotRoll roll = SlotRoll();
 		std::wstring out(roll.dump.begin(), roll.dump.end());
 
+		SlotMachine::LetsRoll(At);
 
 		CoordinateInBlocks itemSpawn = At +									// coordinates where we'll spawn items
 			SlotMachineBlueprint::getBlueprint(								// blueprint varian of the machine			
@@ -69,6 +70,7 @@ void Event_BlockHitByTool(CoordinateInBlocks At, UniqueID CustomBlockID, wString
 					)
 				)
 					.outputRelativeToButton;								// offset in coordinates
+
 
 		// Spawn rewards based on the slots
 		switch (roll.result) {

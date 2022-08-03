@@ -99,7 +99,7 @@ void SlotMachine::BuildHere(CoordinateInBlocks at, DirectionVectorInCentimeters 
 
 // Remove the whole structure
 // At == origin block, Direction == where player is facing
-void SlotMachine::RemoveSlotMachine(CoordinateInBlocks at, DirectionVectorInCentimeters direction) {
+void SlotMachine::RemoveSlotMachine(CoordinateInBlocks at) {
 	Direction machineFacingDirection = SlotMachine::GetSlotMachineDirection(at);
 
 	// blueprint holds information on how to build Slot Machine

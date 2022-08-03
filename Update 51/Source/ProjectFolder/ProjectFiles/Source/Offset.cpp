@@ -40,20 +40,18 @@ public:
 
 	// Get general direction the player is looking
 	static Direction GetDirection(DirectionVectorInCentimeters direction) {
-		int offsetX = 0;
-		int offsetY = 0;
 
 		if (std::abs(direction.X) >= std::abs(direction.Y) && direction.X >= 0) { // Player looks at east
-			return Direction::east;
+			return Direction::north;
 		}
 		else if (std::abs(direction.X) > std::abs(direction.Y) && direction.X < 0) { // Player looks at west
-			return Direction::west;
-		}
-		else if (std::abs(direction.X) < std::abs(direction.Y) && direction.Y < 0) { // Player looks at south
 			return Direction::south;
 		}
+		else if (std::abs(direction.X) < std::abs(direction.Y) && direction.Y < 0) { // Player looks at south
+			return Direction::west;
+		}
 		else if (std::abs(direction.X) <= std::abs(direction.Y) && direction.Y >= 0) { // Player looks at north
-			return Direction::north;
+			return Direction::east;
 		}
 		return Direction::north;
 	}

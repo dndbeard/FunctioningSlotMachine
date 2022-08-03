@@ -7,14 +7,6 @@
 // Store slot machine blocks that generated structures
 std::vector<CoordinateInBlocks> BlocksThatGenerated = {};
 
-
-void RemoveSlotMachine(CoordinateInBlocks At, DirectionVectorInCentimeters Direction) {
-
-	// Delete Slot Machine blocks
-	SlotMachine::RemoveSlotMachine(At, Direction);
-
-}
-
 /************************************************************
 	Config Variables (Set these to whatever you need. They are automatically read by the game.)
 *************************************************************/
@@ -27,6 +19,7 @@ UniqueID ThisModUniqueIDs[] = { SlotMachineBlockID, FrameBlockID, SlotButtonBloc
 }; // All the UniqueIDs this mod manages. Functions like Event_BlockPlaced are only called for blocks of IDs mentioned here. 
 
 float TickRate = 1;							 // Set how many times per second Event_Tick() is called. 0 means the Event_Tick() function is never called.
+int test = GetRandomInt<0, 100>();
 
 /*************************************************************
 //	Functions (Run automatically by the game, you can put any code you want into them)
@@ -57,8 +50,9 @@ void Event_BlockPlaced(CoordinateInBlocks At, UniqueID CustomBlockID, bool Moved
 // Run every time a block is destroyed
 void Event_BlockDestroyed(CoordinateInBlocks At, UniqueID CustomBlockID, bool Moved)
 {
-	SlotMachine::RemoveSlotMachine(At, GetPlayerViewDirection());
-	int test = GetRandomInt<0, 100>();
+	if (CustomBlockID == SlotMachineBlockID) {
+		SlotMachine::RemoveSlotMachine(At);
+	}
 
 }
 

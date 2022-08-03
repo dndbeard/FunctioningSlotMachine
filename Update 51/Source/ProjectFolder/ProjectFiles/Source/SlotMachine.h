@@ -39,8 +39,8 @@ public:
 	static void BuildHere(CoordinateInBlocks At, DirectionVectorInCentimeters Direction);
 
 	// Remove the whole structure
-	// At == origin block, Direction == where player is facing
-	static void RemoveSlotMachine(CoordinateInBlocks At, DirectionVectorInCentimeters Direction);
+	// At == origin block
+	static void RemoveSlotMachine(CoordinateInBlocks At);
 
 
 	// Search for a SlotButtonBlock from the origin point of SlotMachineBlock placed at "At" coordinates

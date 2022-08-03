@@ -20,7 +20,7 @@ SlotMachineBlueprint::SlotMachineBlueprint() {
 }
 
 SlotMachineBlueprint::SlotMachineBlueprint(int x) {
-	switch (x) {
+	switch (x) { // Direction THE MACHINE is facing
 	case 1: // north
 		blocks[0] = Block(0, 0, 1, FrameBlockID);
 		blocks[1] = Block(0, 0, 2, FrameBlockID);
@@ -28,12 +28,12 @@ SlotMachineBlueprint::SlotMachineBlueprint(int x) {
 		blocks[3] = Block(0, 0, 4, FrameBlockID);
 
 		blocks[4] = Block(1, 0, 1, FrameBlockID);
-		blocks[5] = Block(1, 0, 2, SlotButtonBlockID);
+		blocks[5] = Block(1, 0, 2, FrameBlockID);
 		blocks[6] = Block(1, 0, 3, SlotBarBlockID);
 		blocks[7] = Block(1, 0, 4, FrameBlockID);
 
 		blocks[8] = Block(-1, 0, 1, FrameBlockID);
-		blocks[9] = Block(-1, 0, 2, FrameBlockID);
+		blocks[9] = Block(-1, 0, 2, SlotButtonBlockID);
 		blocks[10] = Block(-1, 0, 3, SlotBarBlockID);
 		blocks[11] = Block(-1, 0, 4, FrameBlockID);
 
@@ -46,12 +46,12 @@ SlotMachineBlueprint::SlotMachineBlueprint(int x) {
 		blocks[3] = Block(0, 0, 4, FrameBlockID);
 
 		blocks[4] = Block(-1, 0, 1, FrameBlockID);
-		blocks[5] = Block(-1, 0, 2, SlotButtonBlockID);
+		blocks[5] = Block(-1, 0, 2, FrameBlockID);
 		blocks[6] = Block(-1, 0, 3, SlotBarBlockID);
 		blocks[7] = Block(-1, 0, 4, FrameBlockID);
 
 		blocks[8] = Block(1, 0, 1, FrameBlockID);
-		blocks[9] = Block(1, 0, 2, FrameBlockID);
+		blocks[9] = Block(1, 0, 2, SlotButtonBlockID);
 		blocks[10] = Block(1, 0, 3, SlotBarBlockID);
 		blocks[11] = Block(1, 0, 4, FrameBlockID);
 
@@ -64,12 +64,12 @@ SlotMachineBlueprint::SlotMachineBlueprint(int x) {
 		blocks[3] = Block(0, 0, 4, FrameBlockID);
 
 		blocks[4] = Block(0, 1, 1, FrameBlockID);
-		blocks[5] = Block(0, 1, 2, SlotButtonBlockID);
+		blocks[5] = Block(0, 1, 2, FrameBlockID);
 		blocks[6] = Block(0, 1, 3, SlotBarBlockID);
 		blocks[7] = Block(0, 1, 4, FrameBlockID);
 
 		blocks[8] = Block(0, -1, 1, FrameBlockID);
-		blocks[9] = Block(0, -1, 2, FrameBlockID);
+		blocks[9] = Block(0, -1, 2, SlotButtonBlockID);
 		blocks[10] = Block(0, -1, 3, SlotBarBlockID);
 		blocks[11] = Block(0, -1, 4, FrameBlockID);
 
@@ -82,12 +82,12 @@ SlotMachineBlueprint::SlotMachineBlueprint(int x) {
 		blocks[3] = Block(0, 0, 4, FrameBlockID);
 
 		blocks[4] = Block(0, -1, 1, FrameBlockID);
-		blocks[5] = Block(0, -1, 2, SlotButtonBlockID);
+		blocks[5] = Block(0, -1, 2, FrameBlockID);
 		blocks[6] = Block(0, -1, 3, SlotBarBlockID);
 		blocks[7] = Block(0, -1, 4, FrameBlockID);
 
 		blocks[8] = Block(0, 1, 1, FrameBlockID);
-		blocks[9] = Block(0, 1, 2, FrameBlockID);
+		blocks[9] = Block(0, 1, 2, SlotButtonBlockID);
 		blocks[10] = Block(0, 1, 3, SlotBarBlockID);
 		blocks[11] = Block(0, 1, 4, FrameBlockID);
 

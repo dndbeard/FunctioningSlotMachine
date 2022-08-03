@@ -11,7 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Random.cpp" />
     <ClCompile Include="Source\Offset.cpp" />
     <ClCompile Include="Source\Block.cpp" />
     <ClCompile Include="Source\SlotMachineBlueprint.cpp" />

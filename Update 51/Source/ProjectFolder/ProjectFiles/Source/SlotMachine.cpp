@@ -89,7 +89,7 @@ void SlotMachine::BuildHere(CoordinateInBlocks at, DirectionVectorInCentimeters 
 
 	Direction playerFacingDirection = Offset::GetDirection(direction);
 	// blueprint holds information on how to build Slot Machine
-	SlotMachineBlueprint bprint = SlotMachineBlueprint(Offset::ReverseDirection(playerFacingDirection)); 
+	SlotMachineBlueprint bprint = SlotMachineBlueprint::getBlueprint(Offset::ReverseDirection(playerFacingDirection));
 	for (int i = 0; i < bprint.size; i++) {
 		SetBlock(at + bprint.blocks[i].coords, bprint.blocks[i].info);
 
@@ -103,7 +103,7 @@ void SlotMachine::RemoveSlotMachine(CoordinateInBlocks at) {
 	Direction machineFacingDirection = SlotMachine::GetSlotMachineDirection(at);
 
 	// blueprint holds information on how to build Slot Machine
-	SlotMachineBlueprint bprint = SlotMachineBlueprint(machineFacingDirection);
+	SlotMachineBlueprint bprint = SlotMachineBlueprint::getBlueprint(machineFacingDirection);
 	for (int i = 0; i < bprint.size; i++) {
 		SetBlock(at + bprint.blocks[i].coords, EBlockType::Air);
 	}
@@ -136,15 +136,15 @@ CoordinateInBlocks SlotMachine::GetButtonCoordinates(CoordinateInBlocks At) {
 		return coords;
 	}
 
-	return CoordinateInBlocks(0, 0, 0);
+	throw std::invalid_argument("No button found near this origin block!");
 }
 	
 // Get a general direction a generated Slot Machine is facing
 // CAREFUL!!! This direction is  OPPOSITE of where player's view is directed when generating a Slot Machine
 Direction SlotMachine::GetSlotMachineDirection(CoordinateInBlocks At) {
 	CoordinateInBlocks ButtonCoords = GetButtonCoordinates(At);
-	if (ButtonCoords.X == 0 && ButtonCoords.Y == 1) return Direction::south;
-	if (ButtonCoords.X == 0 && ButtonCoords.Y == -1) return Direction::north;
-	if (ButtonCoords.X == 1 && ButtonCoords.Y == 0) return Direction::west;
-	if (ButtonCoords.X == -1 && ButtonCoords.Y == 0) return Direction::east;
+	if (ButtonCoords.X == 0 && ButtonCoords.Y == 1) return Direction::east;
+	if (ButtonCoords.X == 0 && ButtonCoords.Y == -1) return Direction::west;
+	if (ButtonCoords.X == 1 && ButtonCoords.Y == 0) return Direction::north;
+	if (ButtonCoords.X == -1 && ButtonCoords.Y == 0) return Direction::south;
 }

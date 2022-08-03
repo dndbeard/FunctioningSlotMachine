@@ -10,6 +10,8 @@
 * Can build and remove the Slot Machine, check if others are nearby, check for correct placement, calculate various offsets
 * This class is made static and fully depends on the consistency of cyubeVR's world, without storing anything itself
 ******************************/
+#include "SlotMachineBlueprint.h"
+
 class SlotMachine {
 public:
 

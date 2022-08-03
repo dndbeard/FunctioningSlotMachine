@@ -42,9 +42,6 @@
     <ClCompile Include="Source\Constants.h">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Random.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Internals.h">

@@ -85,12 +85,13 @@ bool SlotMachine::EnoughSpace(CoordinateInBlocks At, DirectionVectorInCentimeter
 }
 
 // Generate a Slot Machine from the origin block (SlotMachineBlock) at "At" coordinate
-void SlotMachine::BuildHere(CoordinateInBlocks At, DirectionVectorInCentimeters Direction) {
+void SlotMachine::BuildHere(CoordinateInBlocks at, DirectionVectorInCentimeters direction) {
 
+	Direction playerFacingDirection = Offset::GetDirection(direction);
 	// blueprint holds information on how to build Slot Machine
-	SlotMachineBlueprint bprint = SlotMachineBlueprint(); 
+	SlotMachineBlueprint bprint = SlotMachineBlueprint(Offset::ReverseDirection(playerFacingDirection)); 
 	for (int i = 0; i < bprint.size; i++) {
-		SetBlock(At + bprint.blocks[i].coords, bprint.blocks[i].info);
+		SetBlock(at + bprint.blocks[i].coords, bprint.blocks[i].info);
 
 	}
 
@@ -98,12 +99,13 @@ void SlotMachine::BuildHere(CoordinateInBlocks At, DirectionVectorInCentimeters 
 
 // Remove the whole structure
 // At == origin block, Direction == where player is facing
-void SlotMachine::RemoveSlotMachine(CoordinateInBlocks At, DirectionVectorInCentimeters Direction) {
+void SlotMachine::RemoveSlotMachine(CoordinateInBlocks at, DirectionVectorInCentimeters direction) {
+	Direction playerFacingDirection = Offset::GetDirection(direction);
 
 	// blueprint holds information on how to build Slot Machine
-	SlotMachineBlueprint bprint = SlotMachineBlueprint();
+	SlotMachineBlueprint bprint = SlotMachineBlueprint(Offset::ReverseDirection(playerFacingDirection));
 	for (int i = 0; i < bprint.size; i++) {
-		SetBlock(At + bprint.blocks[i].coords, EBlockType::Air);
+		SetBlock(at + bprint.blocks[i].coords, EBlockType::Air);
 	}
 
 }

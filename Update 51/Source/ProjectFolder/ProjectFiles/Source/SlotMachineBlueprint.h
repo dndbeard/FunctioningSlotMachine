@@ -8,5 +8,6 @@ public:
 	Block* output;					// this is where the rewards come out from
 	Block blocks[size];				// array that holds info about blocks inside structure
 
-	SlotMachineBlueprint();			// construct this to get the blueprint
+	SlotMachineBlueprint();
+	SlotMachineBlueprint(int x);
 };

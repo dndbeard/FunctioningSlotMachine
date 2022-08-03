@@ -1,6 +1,6 @@
 #include "GameAPI.h"
 
-enum class Direction { north, south, west, east };
+enum Direction { north=1, south=2, west=3, east=4 };
 
 
 class Offset {
@@ -39,27 +39,27 @@ public:
 	}
 
 	// Get general direction the player is looking
-	static Direction GetDirection(DirectionVectorInCentimeters Direction) {
+	static Direction GetDirection(DirectionVectorInCentimeters direction) {
 		int offsetX = 0;
 		int offsetY = 0;
 
-		if (std::abs(Direction.X) >= std::abs(Direction.Y) && Direction.X >= 0) { // Player looks at east
+		if (std::abs(direction.X) >= std::abs(direction.Y) && direction.X >= 0) { // Player looks at east
 			return Direction::east;
 		}
-		else if (std::abs(Direction.X) > std::abs(Direction.Y) && Direction.X < 0) { // Player looks at west
+		else if (std::abs(direction.X) > std::abs(direction.Y) && direction.X < 0) { // Player looks at west
 			return Direction::west;
 		}
-		else if (std::abs(Direction.X) < std::abs(Direction.Y) && Direction.Y < 0) { // Player looks at south
+		else if (std::abs(direction.X) < std::abs(direction.Y) && direction.Y < 0) { // Player looks at south
 			return Direction::south;
 		}
-		else if (std::abs(Direction.X) <= std::abs(Direction.Y) && Direction.Y >= 0) { // Player looks at north
+		else if (std::abs(direction.X) <= std::abs(direction.Y) && direction.Y >= 0) { // Player looks at north
 			return Direction::north;
 		}
 		return Direction::north;
 	}
 
 	// Get the opposite of the given direction
-	Direction ReverseDirection(Direction direction) {
+	static Direction ReverseDirection(Direction direction) {
 		switch (direction) {
 		case Direction::north:
 			return Direction::south;

@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Offset.cpp" />
+    <ClCompile Include="Source\Direction.cpp" />
     <ClCompile Include="Source\Block.cpp" />
     <ClCompile Include="Source\SlotMachineBlueprint.cpp" />
     <ClCompile Include="Source\SlotMachine.cpp" />

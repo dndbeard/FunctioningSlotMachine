@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include "SlotMachineBlueprint.h"
-#include "Offset.cpp"
+#include "Direction.cpp"
 
 
 /*****************************

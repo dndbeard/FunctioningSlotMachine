@@ -36,7 +36,7 @@
     <ClCompile Include="Source\SlotMachineBlueprint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Offset.cpp">
+    <ClCompile Include="Source\Direction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Constants.h">

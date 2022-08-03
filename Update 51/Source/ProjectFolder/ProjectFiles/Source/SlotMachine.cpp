@@ -6,11 +6,11 @@
 // Check if there's enough space around origin block (SlotMachineBlock) to generate the Slot Machine
 bool SlotMachine::EnoughSpace(CoordinateInBlocks at, DirectionVectorInCentimeters direction) {
 
-	Direction playerFacingDirection = Offset::GetDirection(direction);
+	Direction playerFacingDirection = DirectionHelper::GetDirection(direction);
 	SlotMachineBlueprint bprint;
 	// blueprint holds information on how to build Slot Machine
 	try {
-		bprint = SlotMachineBlueprint::getBlueprint(Offset::ReverseDirection(playerFacingDirection));
+		bprint = SlotMachineBlueprint::getBlueprint(DirectionHelper::ReverseDirection(playerFacingDirection));
 	}
 	catch (std::exception& e) {
 		Log(modName + L" did an oopsie!");
@@ -32,11 +32,11 @@ bool SlotMachine::EnoughSpace(CoordinateInBlocks at, DirectionVectorInCentimeter
 // Generate a Slot Machine from the origin block (SlotMachineBlock) at "At" coordinate
 void SlotMachine::BuildHere(CoordinateInBlocks at, DirectionVectorInCentimeters direction) {
 
-	Direction playerFacingDirection = Offset::GetDirection(direction);
+	Direction playerFacingDirection = DirectionHelper::GetDirection(direction);
 	SlotMachineBlueprint bprint;
 	// blueprint holds information on how to build Slot Machine
 	try {
-		bprint = SlotMachineBlueprint::getBlueprint(Offset::ReverseDirection(playerFacingDirection));
+		bprint = SlotMachineBlueprint::getBlueprint(DirectionHelper::ReverseDirection(playerFacingDirection));
 	}
 	catch (std::exception& e) {
 		Log(modName + L" did an oopsie!");

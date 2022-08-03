@@ -64,8 +64,8 @@ void Event_BlockHitByTool(CoordinateInBlocks At, UniqueID CustomBlockID, wString
 
 		CoordinateInBlocks itemSpawn = At +									// coordinates where we'll spawn items
 			SlotMachineBlueprint::getBlueprint(								// blueprint varian of the machine			
-				Offset::ReverseDirection(								// direction of slot machine
-					Offset::GetDirection(GetPlayerViewDirection())			// direction of player view
+				DirectionHelper::ReverseDirection(								// direction of slot machine
+					DirectionHelper::GetDirection(GetPlayerViewDirection())			// direction of player view
 					)
 				)
 					.outputRelativeToButton;								// offset in coordinates

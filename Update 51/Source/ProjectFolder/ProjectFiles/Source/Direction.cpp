@@ -2,28 +2,7 @@
 
 enum Direction { north=1, south=2, west=3, east=4 };
 
-
-class Offset {
-public:
-	// 3D coordinates
-	int X;
-	int Y;
-	int Z;
-
-	// Construct from 2 coordinates
-	Offset(int X, int Y) {
-		this->X = X;
-		this->Y = Y;
-		this->Z = 0;
-	}
-
-	// Construct from 3 coordinates
-	Offset(int X, int Y, int Z) {
-		this->X = X;
-		this->Y = Y;
-		this->Z = Z;
-	}
-
+namespace DirectionHelper {
 	// Convert Direction into wstring
 	static std::wstring DirectionToString(Direction direction) {
 		switch (direction) {
@@ -69,5 +48,4 @@ public:
 			return Direction::east;
 		}
 	}
-
-};
+}

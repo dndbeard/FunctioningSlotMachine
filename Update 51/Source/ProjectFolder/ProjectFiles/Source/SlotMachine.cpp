@@ -97,6 +97,8 @@ void SlotMachine::BuildHere(CoordinateInBlocks at, DirectionVectorInCentimeters 
 		Log(modName + L" did an oopsie!");
 		return;
 	}
+
+	// Place blocks according to blueprint
 	for (int i = 0; i < bprint.size; i++) {
 		SetBlock(at + bprint.blocks[i].coords, bprint.blocks[i].info);
 
@@ -105,7 +107,7 @@ void SlotMachine::BuildHere(CoordinateInBlocks at, DirectionVectorInCentimeters 
 }
 
 // Remove the whole structure
-// At == origin block, Direction == where player is facing
+// At == origin block
 void SlotMachine::RemoveSlotMachine(CoordinateInBlocks at) {
 	Direction machineFacingDirection = SlotMachine::GetSlotMachineDirection(at);
 
@@ -118,6 +120,8 @@ void SlotMachine::RemoveSlotMachine(CoordinateInBlocks at) {
 		Log(modName + L" did an oopsie while trying to remove Slot Machine!");
 		return;
 	}
+
+	// Remove blocks according to blueprint
 	for (int i = 0; i < bprint.size; i++) {
 		SetBlock(at + bprint.blocks[i].coords, EBlockType::Air);
 	}
@@ -143,33 +147,6 @@ CoordinateInBlocks SlotMachine::GetButtonCoordinates(CoordinateInBlocks At) {
 	}
 
 	throw std::invalid_argument("Button was not found! The structure is probably missing or invalid.");
-
-	/*
-	CoordinateInBlocks coords = At + CoordinateInBlocks(1, 0, 2);
-	BlockInfo found = GetBlock(coords);
-	if (found.CustomBlockID == SlotButtonBlockID){
-		return coords;
-	}
-
-	coords = At + CoordinateInBlocks(-1, 0, 2);
-	found = GetBlock(coords);
-	if (found.CustomBlockID == SlotButtonBlockID) {
-		return coords;
-	}
-
-	coords = At + CoordinateInBlocks(0, 1, 2);
-	found = GetBlock(coords);
-	if (found.CustomBlockID == SlotButtonBlockID) {
-		return coords;
-	}
-	coords = At + CoordinateInBlocks(0, -1, 2);
-	found = GetBlock(coords);
-	if (found.CustomBlockID == SlotButtonBlockID) {
-		return coords;
-	}
-
-	throw std::invalid_argument("No button found near this origin block!");
-	*/
 }
 	
 // Get a general direction a generated Slot Machine is facing

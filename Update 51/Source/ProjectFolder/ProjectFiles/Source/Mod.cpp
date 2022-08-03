@@ -51,7 +51,12 @@ void Event_BlockPlaced(CoordinateInBlocks At, UniqueID CustomBlockID, bool Moved
 void Event_BlockDestroyed(CoordinateInBlocks At, UniqueID CustomBlockID, bool Moved)
 {
 	if (CustomBlockID == SlotMachineBlockID) {
-		SlotMachine::RemoveSlotMachine(At);
+		try {
+			SlotMachine::RemoveSlotMachine(At);
+		}
+		catch (std::exception& e) {
+			Log(modName + L" did an oopsie while destroying SlotMachineBlock!");
+		}
 	}
 
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "GameAPI.h"
+#include <string>
 
 const UniqueID SlotMachineBlockID = 823399;
 const UniqueID FrameBlockID = 823400;
@@ -16,3 +17,5 @@ const UniqueID SlotCrystalBlockID = 500400667;
 const UniqueID SlotAnimatedBlockID = 500400777;
 
 const CoordinateInBlocks up = CoordinateInBlocks(0, 0, 1);
+
+static const std::wstring modName = L"FunctioningSlotMachine";

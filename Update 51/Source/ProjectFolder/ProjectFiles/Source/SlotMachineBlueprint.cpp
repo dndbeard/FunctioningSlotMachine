@@ -5,7 +5,11 @@ static const SlotMachineBlueprint southDirectedMachineBlueprint = SlotMachineBlu
 static const SlotMachineBlueprint westDirectedMachineBlueprint = SlotMachineBlueprint(3);
 static const SlotMachineBlueprint eastDirectedMachineBlueprint = SlotMachineBlueprint(4);
 
-static const SlotMachineBlueprint allBlueprints[4] = { northDirectedMachineBlueprint, southDirectedMachineBlueprint, westDirectedMachineBlueprint, eastDirectedMachineBlueprint };
+static const SlotMachineBlueprint allBlueprints[SlotMachineBlueprint::blueprintAmount] = {  northDirectedMachineBlueprint, 
+																							southDirectedMachineBlueprint, 
+																							westDirectedMachineBlueprint,
+																							eastDirectedMachineBlueprint
+																						 };
 
 SlotMachineBlueprint SlotMachineBlueprint::getBlueprint(int x) {
 	switch (x) {

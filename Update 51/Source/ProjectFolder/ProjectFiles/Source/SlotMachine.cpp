@@ -88,8 +88,15 @@ bool SlotMachine::EnoughSpace(CoordinateInBlocks At, DirectionVectorInCentimeter
 void SlotMachine::BuildHere(CoordinateInBlocks at, DirectionVectorInCentimeters direction) {
 
 	Direction playerFacingDirection = Offset::GetDirection(direction);
+	SlotMachineBlueprint bprint;
 	// blueprint holds information on how to build Slot Machine
-	SlotMachineBlueprint bprint = SlotMachineBlueprint::getBlueprint(Offset::ReverseDirection(playerFacingDirection));
+	try {
+		bprint = SlotMachineBlueprint::getBlueprint(Offset::ReverseDirection(playerFacingDirection));
+	}
+	catch (std::exception& e) {
+		Log(modName + L" did an oopsie!");
+		return;
+	}
 	for (int i = 0; i < bprint.size; i++) {
 		SetBlock(at + bprint.blocks[i].coords, bprint.blocks[i].info);
 
@@ -103,7 +110,14 @@ void SlotMachine::RemoveSlotMachine(CoordinateInBlocks at) {
 	Direction machineFacingDirection = SlotMachine::GetSlotMachineDirection(at);
 
 	// blueprint holds information on how to build Slot Machine
-	SlotMachineBlueprint bprint = SlotMachineBlueprint::getBlueprint(machineFacingDirection);
+	SlotMachineBlueprint bprint;
+	try {
+		bprint = SlotMachineBlueprint::getBlueprint(machineFacingDirection);
+	}
+	catch (std::exception& e) {
+		Log(modName + L" did an oopsie while trying to remove Slot Machine!");
+		return;
+	}
 	for (int i = 0; i < bprint.size; i++) {
 		SetBlock(at + bprint.blocks[i].coords, EBlockType::Air);
 	}
@@ -113,6 +127,24 @@ void SlotMachine::RemoveSlotMachine(CoordinateInBlocks at) {
 
 // Search for a SlotButtonBlock from the origin point of SlotMachineBlock placed at "At" coordinates
 CoordinateInBlocks SlotMachine::GetButtonCoordinates(CoordinateInBlocks At) {
+
+	for (int i = 1; i <= SlotMachineBlueprint::blueprintAmount; i++) {
+		SlotMachineBlueprint bprint;
+		try {
+			bprint = SlotMachineBlueprint::getBlueprint(i);
+		}
+		catch (std::exception& e) {
+			Log(modName + L" did an oopsie!");
+			throw e;
+		}
+		if (GetBlock(At + bprint.button->coords).CustomBlockID == SlotButtonBlockID) {
+			return bprint.button->coords;
+		}
+	}
+
+	throw std::invalid_argument("Button was not found! The structure is probably missing or invalid.");
+
+	/*
 	CoordinateInBlocks coords = At + CoordinateInBlocks(1, 0, 2);
 	BlockInfo found = GetBlock(coords);
 	if (found.CustomBlockID == SlotButtonBlockID){
@@ -137,14 +169,15 @@ CoordinateInBlocks SlotMachine::GetButtonCoordinates(CoordinateInBlocks At) {
 	}
 
 	throw std::invalid_argument("No button found near this origin block!");
+	*/
 }
 	
 // Get a general direction a generated Slot Machine is facing
 // CAREFUL!!! This direction is  OPPOSITE of where player's view is directed when generating a Slot Machine
 Direction SlotMachine::GetSlotMachineDirection(CoordinateInBlocks At) {
 	CoordinateInBlocks ButtonCoords = GetButtonCoordinates(At);
-	if (ButtonCoords.X == 0 && ButtonCoords.Y == 1) return Direction::east;
-	if (ButtonCoords.X == 0 && ButtonCoords.Y == -1) return Direction::west;
-	if (ButtonCoords.X == 1 && ButtonCoords.Y == 0) return Direction::north;
-	if (ButtonCoords.X == -1 && ButtonCoords.Y == 0) return Direction::south;
+	if (ButtonCoords.X == 0 && ButtonCoords.Y == 1) return Direction::south;
+	if (ButtonCoords.X == 0 && ButtonCoords.Y == -1) return Direction::north;
+	if (ButtonCoords.X == 1 && ButtonCoords.Y == 0) return Direction::east;
+	if (ButtonCoords.X == -1 && ButtonCoords.Y == 0) return Direction::west;
 }

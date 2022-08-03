@@ -2,40 +2,6 @@
 #include <string>
 #include "SlotMachine.h"
 
-// Check if a block is among those that Slot Machine is made of
-bool SlotMachine::BlockInArray(UniqueID block, const UniqueID blockArray[]) {
-	for (int i = 0; i < (sizeof(blockArray) / sizeof(*blockArray)); i++) {
-		if (block == blockArray[i])
-			return true;
-	}
-	return false;
-}
-
-// General offset for placing the Slot Machine
-// Used to generate and remove the Slot Machine
-Offset SlotMachine::GetOffset(DirectionVectorInCentimeters Direction) {
-	return GetOffset(Offset::GetDirection(Direction));
-}
-
-Offset SlotMachine::GetOffset(Direction direction) {
-	Offset offset = Offset(0, 0);
-	switch (direction) {
-	case Direction::north:
-		offset.X = 1;
-		break;
-	case Direction::south:
-		offset.X = -1;
-		break;
-	case Direction::west:
-		offset.Y = -1;
-		break;
-	case Direction::east:
-		offset.Y = 1;
-		break;
-	}
-	return offset;
-}
-
 // Offset from a button (that was hit) to the block where rewards are spawned
 Offset SlotMachine::GetOutputOffset(DirectionVectorInCentimeters Direction) {
 	Offset offset = Offset(0, 0);
@@ -62,26 +28,29 @@ Offset SlotMachine::GetOutputOffset(DirectionVectorInCentimeters Direction) {
 
 
 // Check if there's enough space around origin block (SlotMachineBlock) to generate the Slot Machine
-bool SlotMachine::EnoughSpace(CoordinateInBlocks At, DirectionVectorInCentimeters Direction) {
-	Offset offset = SlotMachine::GetOffset(Direction);
+bool SlotMachine::EnoughSpace(CoordinateInBlocks at, DirectionVectorInCentimeters direction) {
 
-	// Check the space that will be occupied
-	for (int i = 1; i <= 4; i++) {
-		if (GetBlock(At + CoordinateInBlocks(-offset.X, -offset.Y, i)).Type != EBlockType::Air) return false;
-		if (GetBlock(At + CoordinateInBlocks(0, 0, i)).Type != EBlockType::Air) return false;
-		if (GetBlock(At + CoordinateInBlocks(offset.X, offset.Y, i)).Type != EBlockType::Air) return false;
+	Direction playerFacingDirection = Offset::GetDirection(direction);
+	SlotMachineBlueprint bprint;
+	// blueprint holds information on how to build Slot Machine
+	try {
+		bprint = SlotMachineBlueprint::getBlueprint(Offset::ReverseDirection(playerFacingDirection));
+	}
+	catch (std::exception& e) {
+		Log(modName + L" did an oopsie!");
+		return false;
 	}
 
-	// Check the space nearby: no two slot machines back to back! For reasons, just trust me
-	for (int i = 1; i <= 4; i++) {
-		if (BlockInArray(GetBlock(At + CoordinateInBlocks(offset.Y, offset.X, i)).CustomBlockID, ConsistsOf)) {
-			return false;
-		}
-		if (BlockInArray(GetBlock(At + CoordinateInBlocks(-offset.Y, -offset.X, i)).CustomBlockID, ConsistsOf)) {
-			return false;
-		}
+	// If any of the blocks is occupied, there is not enough space
+	for (int i = 0; i < bprint.size; i++) {
+		if (GetBlock(at + bprint.blocks[i].coords).Type != EBlockType::Air) return false;
 	}
-	return true;
+
+	// occupiedBlocks are coordinates that must be empty for a structure to be placed. They remain empty
+	for (int i = 0; i < bprint.occupiedSize; i++) {
+		if (GetBlock(at + bprint.occupiedBlocks[i].coords).Type != EBlockType::Air) return false;
+	}
+
 }
 
 // Generate a Slot Machine from the origin block (SlotMachineBlock) at "At" coordinate
@@ -101,7 +70,6 @@ void SlotMachine::BuildHere(CoordinateInBlocks at, DirectionVectorInCentimeters 
 	// Place blocks according to blueprint
 	for (int i = 0; i < bprint.size; i++) {
 		SetBlock(at + bprint.blocks[i].coords, bprint.blocks[i].info);
-
 	}
 
 }
@@ -119,6 +87,12 @@ void SlotMachine::RemoveSlotMachine(CoordinateInBlocks at) {
 	catch (std::exception& e) {
 		Log(modName + L" did an oopsie while trying to remove Slot Machine!");
 		return;
+	}
+
+	for (int i = 0; i < bprint.size; i++) {
+		if (GetBlock(at + bprint.blocks[i].coords).CustomBlockID != bprint.blocks[i].info.CustomBlockID) {
+			return;
+		}
 	}
 
 	// Remove blocks according to blueprint

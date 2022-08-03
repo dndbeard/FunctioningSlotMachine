@@ -6,12 +6,6 @@ static const SlotMachineBlueprint southDirectedMachineBlueprint = SlotMachineBlu
 static const SlotMachineBlueprint westDirectedMachineBlueprint = SlotMachineBlueprint(3);
 static const SlotMachineBlueprint eastDirectedMachineBlueprint = SlotMachineBlueprint(4);
 
-// Put all variations into array
-static const SlotMachineBlueprint allBlueprints[SlotMachineBlueprint::variantAmount] = {  northDirectedMachineBlueprint,
-																							southDirectedMachineBlueprint, 
-																							westDirectedMachineBlueprint,
-																							eastDirectedMachineBlueprint
-																						 };
 
 SlotMachineBlueprint SlotMachineBlueprint::getBlueprint(int variant) {
 	switch (variant) {
@@ -52,6 +46,10 @@ SlotMachineBlueprint::SlotMachineBlueprint(int variant) {
 
 		output = &blocks[1];
 		button = &blocks[5];
+
+		occupiedBlocks[0] = Block(0, 1, 2, SlotButtonBlockID);
+		occupiedBlocks[1] = Block(1, 0, 2, SlotButtonBlockID);
+		occupiedBlocks[2] = Block(-1, 0, 2, SlotButtonBlockID);
 		break;
 
 	case 2: // south
@@ -72,6 +70,10 @@ SlotMachineBlueprint::SlotMachineBlueprint(int variant) {
 
 		output = &blocks[1];
 		button = &blocks[9];
+
+		occupiedBlocks[0] = Block(0, -1, 2, SlotButtonBlockID);
+		occupiedBlocks[1] = Block(1, 0, 2, SlotButtonBlockID);
+		occupiedBlocks[2] = Block(-1, 0, 2, SlotButtonBlockID);
 		break;
 
 	case 3: // west
@@ -92,6 +94,10 @@ SlotMachineBlueprint::SlotMachineBlueprint(int variant) {
 
 		output = &blocks[1]; 
 		button = &blocks[9];
+
+		occupiedBlocks[0] = Block(0, 1, 2, SlotButtonBlockID);
+		occupiedBlocks[1] = Block(1, 0, 2, SlotButtonBlockID);
+		occupiedBlocks[2] = Block(0, -1, 2, SlotButtonBlockID);
 		break;
 
 	case 4: // east
@@ -112,6 +118,10 @@ SlotMachineBlueprint::SlotMachineBlueprint(int variant) {
 
 		output = &blocks[1];
 		button = &blocks[5];
+
+		occupiedBlocks[0] = Block(0, 1, 2, SlotButtonBlockID);
+		occupiedBlocks[1] = Block(0, -1, 2, SlotButtonBlockID);
+		occupiedBlocks[2] = Block(-1, 0, 2, SlotButtonBlockID);
 		break;
 
 	default:

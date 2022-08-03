@@ -15,24 +15,10 @@
 class SlotMachine {
 public:
 
-	static Direction ReverseDirection(Direction direction);
-
 	// Blocks that Slot Machine is made of
 	static constexpr UniqueID ConsistsOf[] = { FrameBlockID, SlotButtonBlockID, SlotMachineBlockID,
 		SlotZeroBlockID, SlotCherryBlockID, SlotBarBlockID, SlotBarBarBlockID, SlotBarBarBarBlockID, SlotSevenBlockID, SlotCrystalBlockID
 	};
-
-	// Check if a block is among those that Slot Machine is made of
-	static bool BlockInArray(UniqueID block, const UniqueID blockArray[]);
-
-	// General offset for placing the Slot Machine
-	// Used to generate and remove the Slot Machine
-	static Offset GetOffset(DirectionVectorInCentimeters Direction);
-
-	static Offset GetOffset(Direction direction);
-
-	// Offset from a button (that was hit) to the block where rewards are spawned
-	static Offset GetOutputOffset(DirectionVectorInCentimeters Direction);
 
 	// Check if there's enough space around origin block (SlotMachineBlock) to generate the Slot Machine
 	static bool EnoughSpace(CoordinateInBlocks At, DirectionVectorInCentimeters Direction);

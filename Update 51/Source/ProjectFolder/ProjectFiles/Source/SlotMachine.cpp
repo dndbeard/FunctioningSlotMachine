@@ -2,30 +2,6 @@
 #include <string>
 #include "SlotMachine.h"
 
-// Offset from a button (that was hit) to the block where rewards are spawned
-Offset SlotMachine::GetOutputOffset(DirectionVectorInCentimeters Direction) {
-	Offset offset = Offset(0, 0);
-	switch (Offset::GetDirection(Direction)) {
-	case Direction::north:
-		offset.Y = -1;
-		offset.X = 1;
-		break;
-	case Direction::south:
-		offset.Y = 1;
-		offset.X = -1;
-		break;
-	case Direction::west:
-		offset.X = 1;
-		offset.Y = 1;
-		break;
-	case Direction::east:
-		offset.X = -1;
-		offset.Y = -1;
-		break;
-	}
-	return offset;
-}
-
 
 // Check if there's enough space around origin block (SlotMachineBlock) to generate the Slot Machine
 bool SlotMachine::EnoughSpace(CoordinateInBlocks at, DirectionVectorInCentimeters direction) {

@@ -61,13 +61,7 @@ void Event_BlockHitByTool(CoordinateInBlocks At, UniqueID CustomBlockID, wString
 		SlotRoll roll = SlotRoll();
 		std::wstring out(roll.dump.begin(), roll.dump.end());
 
-		// Get offset to know which direction slot machine is facing
-		/*
-		Offset offset = SlotMachine::GetOutputOffset(GetPlayerViewDirection());
 
-		SpawnHintText(At + CoordinateInBlocks(offset.X, offset.Y, 0), out, 3, 3);
-		CoordinateInBlocks itemSpawn = (At + CoordinateInBlocks(offset.X, offset.Y, 0));
-		*/
 		CoordinateInBlocks itemSpawn = At +									// coordinates where we'll spawn items
 			SlotMachineBlueprint::getBlueprint(								// blueprint varian of the machine			
 				Offset::ReverseDirection(								// direction of slot machine

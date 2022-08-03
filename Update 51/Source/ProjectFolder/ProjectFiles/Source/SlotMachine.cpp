@@ -142,25 +142,63 @@ bool SlotMachine::IsSlot(UniqueID ID) {
 		ID == SlotCherryBlockID ||
 		ID == SlotCrystalBlockID ||
 		ID == SlotSevenBlockID ||
-		ID == SlotZeroBlockID
+		ID == SlotZeroBlockID ||
+		ID == SlotAnimatedBlockID
 		;
 }
 
 
-void SlotMachine::LetsRoll(CoordinateInBlocks buttonCoordinates) {
+void SlotMachine::LetsRoll(CoordinateInBlocks buttonCoordinate) {
 	CoordinateInBlocks originBlockCoordinate;
 	SlotMachineBlueprint bprint;
 
-	std::pair pairOfValues = GetBlueprintVariantFromButton(buttonCoordinates);
+	std::pair pairOfValues = GetBlueprintVariantFromButton(buttonCoordinate);
 	originBlockCoordinate = pairOfValues.first;
 	bprint = pairOfValues.second;
 
 	for (int i = 0; i < bprint.size; i++) {
 		if (IsSlot(bprint.blocks[i].info.CustomBlockID)) {
-			SetBlock(bprint.blocks[i].coords, SlotAnimatedBlockID);
+			SetBlock(originBlockCoordinate + bprint.blocks[i].coords, SlotAnimatedBlockID);
 		}
 	}
+}
 
+void SlotMachine::SetSlotsFromSlotRoll(SlotRoll slotRoll, CoordinateInBlocks buttonCoordinate) {
+	CoordinateInBlocks originBlockCoordinate;
+	SlotMachineBlueprint bprint;
 
+	std::pair pairOfValues = GetBlueprintVariantFromButton(buttonCoordinate);
+	originBlockCoordinate = pairOfValues.first;
+	bprint = pairOfValues.second;
+
+	int j = 0;
+	for (int i = 0; i < bprint.size; i++) {
+		if (j < 0 || j > 2) break;
+		if (IsSlot(bprint.blocks[i].info.CustomBlockID)) {
+			SpawnHintText(originBlockCoordinate + bprint.blocks[i].coords + up + up, std::to_wstring(GetSlotBlockID(slotRoll.slots[j])), 5);
+			SetBlock(originBlockCoordinate + bprint.blocks[i].coords, GetSlotBlockID(slotRoll.slots[j++]));
+		}
+	}
+}
+
+UniqueID SlotMachine::GetSlotBlockID(Slot slot) {
+	switch (slot) {
+	case zero:
+		return SlotZeroBlockID;
+	case copper:
+		return SlotCherryBlockID;
+	case b:
+		return SlotBarBlockID;
+	case bb:
+		return SlotBarBarBlockID;
+	case bbb:
+		return SlotBarBarBarBlockID;
+	case seven:
+		return SlotSevenBlockID;
+	case crystal:
+		return SlotCrystalBlockID;
+	default:
+		throw std::invalid_argument("Invalid slot!");
+	}
 }
 

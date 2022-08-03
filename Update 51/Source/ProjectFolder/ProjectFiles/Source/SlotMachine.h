@@ -3,6 +3,7 @@
 #include <string>
 #include "SlotMachineBlueprint.h"
 #include "Direction.cpp"
+#include "SlotRoll.h"
 
 
 /*****************************
@@ -36,6 +37,10 @@ public:
 	static CoordinateInBlocks GetButtonCoordinates(CoordinateInBlocks At);
 
 	static void LetsRoll(CoordinateInBlocks buttonCoordinates);
+
+	static void SetSlotsFromSlotRoll(SlotRoll slotRoll, CoordinateInBlocks buttonCoordinate);
+
+	static UniqueID GetSlotBlockID(Slot slot);
 
 	// Given coordinates of SlotButtonBlock, figure out the variant of Slot Machine
 	static std::pair<CoordinateInBlocks, SlotMachineBlueprint> GetBlueprintVariantFromButton(CoordinateInBlocks At);

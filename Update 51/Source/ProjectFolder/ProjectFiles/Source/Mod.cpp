@@ -1,6 +1,8 @@
 #include "SlotRoll.h"
 #include "SlotMachine.h"
 #include <cmath> 
+#include <thread>
+#include <chrono>
 
 /************************************************************
 	Config Variables (Set these to whatever you need. They are automatically read by the game.)
@@ -14,6 +16,7 @@ UniqueID ThisModUniqueIDs[] = { SlotMachineBlockID, FrameBlockID, SlotButtonBloc
 }; // All the UniqueIDs this mod manages. Functions like Event_BlockPlaced are only called for blocks of IDs mentioned here. 
 
 float TickRate = 1;							 // Set how many times per second Event_Tick() is called. 0 means the Event_Tick() function is never called.
+bool isRolling = false;
 int test = GetRandomInt<0, 100>();			 // DON'T REMOVE THIS! 
 
 /*************************************************************
@@ -58,10 +61,17 @@ void Event_BlockDestroyed(CoordinateInBlocks At, UniqueID CustomBlockID, bool Mo
 void Event_BlockHitByTool(CoordinateInBlocks At, UniqueID CustomBlockID, wString ToolName, CoordinateInCentimeters ExactHitLocation, bool ToolHeldByHandLeft)
 {
 	if (CustomBlockID == SlotButtonBlockID) {
+		if (isRolling) return;
+		isRolling = true;
+
 		SlotRoll roll = SlotRoll();
 		std::wstring out(roll.dump.begin(), roll.dump.end());
 
 		SlotMachine::LetsRoll(At);
+
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+		SlotMachine::SetSlotsFromSlotRoll(roll, At);
 
 		CoordinateInBlocks itemSpawn = At +									// coordinates where we'll spawn items
 			SlotMachineBlueprint::getBlueprint(								// blueprint varian of the machine			
@@ -109,6 +119,7 @@ void Event_BlockHitByTool(CoordinateInBlocks At, UniqueID CustomBlockID, wString
 				SpawnBlockItem(itemSpawn, EBlockType::Crystal);
 			break;
 		}
+		isRolling = false;
 	}
 }
 
